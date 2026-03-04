@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choa Lee | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</head>
+<body data-theme="dark">
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    <div class="theme-toggle btn-disabled" style="cursor: not-allowed; opacity: 0.5;" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-text">Dark Mode</span>
+    </div>
+    <header>
+        <div id="header-container" class="container mx-auto px-6 flex items-center justify-center h-full">
+            <nav id="nav-links" class="hidden md:flex items-center gap-4 theme-text-main relative z-0">
+                <div id="nav-indicator" class="absolute bg-[var(--accent)]/20 rounded-full transition-all duration-500 ease-out z-[-1]" style="left: 0; width: 0; height: 100%;"></div>
+                <a href="javascript:void(0)" data-section="0" onclick="goToSection(0)" class="nav-link">INTRO</a>
+                <a href="javascript:void(0)" data-section="1" onclick="goToSection(1)" class="nav-link">ABOUT</a>
+                <a href="javascript:void(0)" data-section="2" onclick="goToSection(2)" class="nav-link">EXPERIENCE</a>
+                <a href="javascript:void(0)" data-section="3" onclick="goToSection(3)" class="nav-link">SKILLS</a>
+                <a href="javascript:void(0)" data-section="4" onclick="goToSection(4)" class="nav-link">PROJECTS</a>
+            </nav>
+        </div>
+    </header>
+    <div id="home-content" class="active">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl">
+                <div class="h-1 mb-8" style="width: 100px; background: var(--accent); box-shadow: 0 0 15px var(--accent-glow);"></div>
+                <h2 class="text-lg md:text-xl mb-4 tracking-widest theme-accent">PORTFOLIO</h2>
+                <h1 class="text-5xl md:text-8xl font-archivo leading-none mb-6 uppercase tracking-tighter theme-text-main drop-shadow-xl">
+                    HELLO, I'm <br><span class="theme-accent">{{ profile.name }}</span>
+                </h1>
+                <div class="text-xl md:text-3xl mb-8 max-w-2xl leading-relaxed theme-text-sub">
+                    {{ profile.title }} | {{ profile.location }}
+                </div>
+                <div class="flex items-center gap-4 text-lg font-mono mb-10 theme-text-sub">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 theme-accent">
+                            <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        {{ profile.city }}, {{ profile.location }}
+                    </div>
+                </div>
+                <div class="flex gap-4 mt-10 relative z-[100]">
+                    <a href="{{ profile.cv_url }}" target="_blank" class="shadow-btn px-10 py-4 rounded-full hover:scale-105 transition-all font-archivo flex items-center justify-center">Download CV</a>
+                    <button class="px-10 py-4 rounded-full font-archivo btn-disabled" disabled>Contact ME</button>
+                </div>
+                <div class="flex items-center gap-5 mt-12 relative z-[100]">
+                    <a href="https://github.com" target="_blank" class="social-icon">
+                        <div class="icon-circle"><i class="fab fa-github text-lg"></i></div>
+                    </a>
+                    <a href="mailto:{{ profile.email_address }}?subject=Portfolio Contact" class="social-icon">
+                        <div class="icon-circle"><i class="fas fa-envelope text-lg"></i></div>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="social-icon">
+                        <div class="icon-circle"><i class="fab fa-linkedin text-lg"></i></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="section-1" class="section-container">
+        <div class="about-grid">
+            <div class="static-profile-wrapper">
+                <div class="static-profile-img" style="min-height: 400px; position: relative; display: flex; align-items: center; background-color: #0d1b2a; overflow: hidden;">
+                    <div style="position: absolute; top: 0; right: 0; width: 100%; height: 100%; background-image: url('{{ url_for('static', filename='test.png') }}') !important; background-size: cover !important; background-position: center !important; -webkit-mask-image: linear-gradient(110deg, transparent 30%, black 70%); mask-image: linear-gradient(110deg, transparent 30%, black 70%); z-index: 1;"></div>
+                    <div class="profile-side-content" style="position: relative; z-index: 2; flex: 0 0 70%;">
+                        <h2 class="font-archivo uppercase leading-tight" style="color: white; margin-bottom: 2rem;">{{ profile.sub_text }}</h2>
+                        <a href="#section-4" onclick="goToSection(4)" class="view-portfolio-btn">View Portfolio <i class="fas fa-chevron-right ml-2 text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="about-content-wrapper">
+                <h4 class="about-header-text text-4xl font-bold mb-8 uppercase tracking-tight theme-text-main w-full text-center">About me</h4>
+                <div class="space-y-12 theme-text-sub w-full flex flex-col items-center">
+                    <p class="about-desc-text text-lg md:text-xl leading-relaxed max-w-7xl text-left">&nbsp;&nbsp;&nbsp;&nbsp;{{ profile.description | safe }}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left">
+                        {% for f in about_features %}
+                        <div class="about-feature-card theme-bg-panel rounded-[32px] p-8 flex flex-col items-start transition-all hover:-translate-y-2">
+                            <div class="flex items-center justify-center mb-4">
+                                <i class="fas {{ f.icon }} theme-accent text-3xl drop-shadow-md"></i>
+                            </div>
+                            <h4 class="font-bold mb-2 theme-text-main text-lg">{{ f.title }}</h4>
+                            <p class="theme-text-sub text-sm leading-relaxed">{{ f.content }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="section-2" class="section-container">
+        <div class="container mx-auto px-6 max-w-[1500px]">
+            <h2 class="text-5xl font-archivo theme-text-main mb-12 uppercase drop-shadow-lg">Experience</h2>
+            <div class="flex gap-4 mb-8 relative z-10" id="exp-filters">
+                <button class="filter-btn filter-all active" data-filter="ALL" onclick="filterExperience('ALL', this)">
+                    <span class="btn-text">ALL</span>
+                    <i class="fas fa-layer-group btn-icon"></i>
+                </button>
+                <button class="filter-btn filter-work" data-filter="WORK" onclick="filterExperience('WORK', this)">
+                    <span class="btn-text">WORK</span>
+                    <i class="fas fa-briefcase btn-icon"></i>
+                </button>
+                <button class="filter-btn filter-education" data-filter="EDUCATION" onclick="filterExperience('EDUCATION', this)">
+                    <span class="btn-text">EDUCATION</span>
+                    <i class="fas fa-graduation-cap btn-icon"></i>
+                </button>
+                <button class="filter-btn filter-award" data-filter="AWARD" onclick="filterExperience('AWARD', this)">
+                    <span class="btn-text">AWARD</span>
+                    <i class="fas fa-trophy btn-icon"></i>
+                </button>
+            </div>
+            <div class="exp-main-layout">
+                <div class="exp-scroll-area">
+                    <div class="exp-wrapper">
+                        <div class="exp-line"></div>
+                        <div class="exp-dot-glow"></div>
+                        {% for exp in experience %}
+                        <div class="exp-item" data-category="{{ exp.category }}" data-year="{{ 'NOW' if exp.is_present else exp.start_year }}">
+                            <div class="exp-year transition-opacity duration-300">{{ "NOW" if exp.is_present else exp.start_year }}</div>
+                            <div class="exp-dot"></div>
+                            <div class="exp-month">{{ "--" if exp.is_present else exp.start_month }}</div>
+                            <div class="exp-content theme-bg-panel" onmouseenter="showReference({{ exp.id }})">
+                                <svg class="draw-svg">
+                                    <rect class="draw-rect" x="0" y="0" width="100%" height="100%" rx="24" ry="24"></rect>
+                                </svg>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-[12px] font-mono font-bold tracking-[2px] uppercase px-2 py-0.5 rounded flex items-center gap-1
+                                        {% if exp.category == 'WORK' %} text-blue-400 font-mono border border-blue-500/30 bg-blue-500/10
+                                        {% elif exp.category == 'EDUCATION' %} text-green-400 font-mono border border-green-500/30 bg-green-500/10
+                                        {% elif exp.category == 'AWARD' %} text-yellow-400 font-mono border border-yellow-500/30 bg-yellow-500/10
+                                        {% else %} text-gray-400 border border-gray-500/30 bg-gray-500/10
+                                        {% endif %}">
+                                        {% if exp.category == 'WORK' %}<i class="fas fa-briefcase text-[8px]"></i>
+                                        {% elif exp.category == 'EDUCATION' %}<i class="fas fa-graduation-cap text-[8px]"></i>
+                                        {% elif exp.category == 'AWARD' %}<i class="fas fa-trophy text-[8px]"></i>{% endif %}
+                                        {{ exp.category }}
+                                    </span>
+                                </div>
+                                <h4 class="text-[20px] font-bold mt-4 font-archivo uppercase theme-text-main">{{ exp.role | safe }}</h4>
+                                <p class="text-[16px] mt-1 opacity-75">{{ exp.organization }}</p>
+                                <p class="text-[16px] mt-2 leading-relaxed theme-text-sub whitespace-pre-line">{{ exp.description }}</p>
+                                <p class="text-[14px] mt-3 opacity-65 theme-text-sub font-mono">
+                                    {% if exp.city %}{{ exp.city }}{% endif %}{% if exp.city and exp.location %}, {% endif %}{{ exp.location }}
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="next-section-trigger">
+                            <p>Scroll to explore skills</p>
+                            <div class="arrows">
+                                <i class="fas fa-chevron-right"></i>
+                                <i class="fas fa-chevron-right"></i>
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ref-fixed-area">
+                    <h3 class="text-xl font-archivo theme-text-sub mb-6 uppercase tracking-widest">References</h3>
+                    <div class="ref-wrapper relative" id="ref-wrapper" style="min-height: 250px;">
+                        <div id="ref-default-msg" class="absolute inset-0 flex flex-col items-start pt-10 text-center opacity-70 transition-opacity duration-300">
+                            <p class="text-lg font-mono font-bold theme-text-sub w-full text-left"><i class="fas fa-hand-pointer mr-2"></i> Hover over an experience card to view references.</p>
+                        </div>
+                        {% for ref in references %}
+                        <div class="ref-card theme-bg-panel absolute w-full top-0 left-0 opacity-0 pointer-events-none transition-all duration-400 transform translate-y-5" id="ref-{{ ref.experience_id }}">
+                            <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                            <p class="text-sm leading-relaxed mb-4 italic theme-text-main">"{{ ref.content }}"</p>
+                            <div class="flex items-center gap-3 border-t border-[var(--glass-border)] pt-4">
+                                <div class="ref-avatar w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold font-archivo bg-blue-500/20 text-blue-400">{{ ref.name[:2] | upper }}</div>
+                                <div>
+                                    <p class="text-[13px] font-bold theme-accent">{{ ref.title }}</p>
+                                    <p class="text-[11px] theme-text-sub">{{ ref.organization }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="section-3" class="section-container !h-screen !max-h-screen !overflow-hidden flex items-center justify-center">
+        <div class="w-full h-full flex items-center justify-center pt-24 p-4 md:p-8">
+            <div class="theme-bg-panel mx-auto rounded-[40px] p-6 md:p-10 flex flex-col gap-6 max-w-[1300px] w-full h-full max-h-[90vh] shadow-2xl relative overflow-hidden backdrop-blur-xl s3-main-panel">
+                <div class="flex flex-col items-center justify-center flex-[1.2] min-h-0 relative border-b border-white/5 pb-6">
+                    <div class="w-full mb-4">
+                        <h2 class="!text-[2rem] font-archivo theme-text-main uppercase tracking-tighter text-center">Technical <span class="theme-accent">Skills</span></h2>
+                    </div>
+                    <div class="orbit-container !m-0 flex items-center justify-center scale-75 md:scale-95 flex-grow relative">
+                        <ul class="orbit-wrap relative">
+                            <li class="orbit-center"><i class="orbit-center__icon fa fa-code"></i></li>
+                            {% for db_val, data in skills.items() %}
+                            {% if data.skill_list %}
+                            <li class="ring-{{ data.info.ring_idx }}-container group" style="z-index: {{ 10 + data.info.ring_idx }};" data-ring="{{ data.info.ring_idx }}">
+                                <ul class="ring-{{ data.info.ring_idx }}">
+                                    {% set total_items = data.skill_list|length %}
+                                    {% for item in data.skill_list %}
+                                    {% set angle = (360 / total_items) * loop.index0 %}
+                                    <li style="transform: rotate({{ angle }}deg) translate({{ '190px' if data.info.ring_idx == 0 else '130px' if data.info.ring_idx == 1 else '80px' }}) rotate(-{{ angle }}deg);">
+                                        <i class="orbit-icon {{ item.icon_class }}"></i>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="label-box lb-{{ data.info.lb_idx }}">
+                                    <div class="label-header">
+                                        <span class="label-title">{{ data.info.name }}</span>
+                                        <span class="label-criteria">{{ data.info.criteria }}</span>
+                                    </div>
+                                    {% set total = namespace(value=0) %}
+                                    {% set count = data.skill_list|length %}
+                                    {% for item in data.skill_list %}{% set total.value = total.value + item.proficiency_percent %}{% endfor %}
+                                    {% set avg = (total.value / count)|round(1) if count > 0 else 0 %}
+                                    <div class="avg-progress-container">
+                                        <div class="avg-info"><span class="avg-label">Average Proficiency</span></div>
+                                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: {{ avg }}%;"></div></div>
+                                    </div>
+                                    <div class="label-skills-grid">
+                                        {% for item in data.skill_list %}<span class="skill-tag">{{ item.skill_name }} <span class="s-pc">{{ item.proficiency_percent }}%</span></span>{% endfor %}
+                                    </div>
+                                </div>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="flex flex-col lg:flex-row gap-6 flex-1 min-h-0">
+                    <div class="w-full lg:w-[65%] flex flex-col gap-4 min-h-0 border-r border-white/5 pr-3">
+                        <div class="flex justify-between items-baseline px-2">
+                            <span class="card-mini-title !text-[2rem] !mb-0">Certificates</span>
+                            <p onclick="openAllCertificates()" class="view-all-btn cursor-pointer">View All</p>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 h-full">
+                            {% for cert in certificates[:3] %}
+                            <div class="cert-card {{ 'is-expired' if cert.is_expired == 1 else 'is-active' }}">
+                                <i class="fas {{ cert.icon_type }} theme-accent"></i>
+                                {% if cert.is_expired == 1 %}<div class="badge-expired">EXPIRED</div>{% endif %}
+                                <div class="text-[1.5rem] theme-text-main leading-tight mb-2 line-clamp-2">{{ cert.title | safe}}</div>
+                                <div class="theme-text-sub">{{ cert.issuer }}</div>
+                                <div class="theme-text-sub">{{ cert.date }}</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-[35%] grid grid-cols-2 gap-4 min-h-0">
+                        <div class="col-span-2 theme-bg-panel !bg-white/5 rounded-3xl p-4 border border-white/10">
+                            <span class="card-mini-title !mb-2">Core Strengths</span>
+                            <hr class="custom-hr mb-6">
+                            <div class="flex flex-wrap gap-2">
+                                {% for s in strengths %}
+                                <span class="tag-item !py-1 !px-3">
+                                    {% if s.icon_class %}<i class="{{ s.icon_class }} mr-1 text-[10px]"></i>{% endif %}
+                                    {{ s.strength_name }}
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="theme-bg-panel !bg-white/5 rounded-3xl p-6 border border-white/10 backdrop-blur-md">
+                            <h3 class="card-mini-title !mb-2">Grades</h3>
+                            <hr class="custom-hr mb-6">
+                            <div class="mb-8">
+                                <div class="text-[17px] font-bold theme-text-main leading-tight mb-2">{{ profile.title }}</div>
+                                <div class="text-[14px] theme-text-sub opacity-70">{{ profile.university }}</div>
+                            </div>
+                            <div class="theme-text-main font-medium flex items-baseline gap-1">
+                                <span class="text-sm opacity-70 mr-2">GPA</span>
+                                <span class="text-3xl font-bold theme-accent-text">{{ profile.gpa.split(' ')[0] }}</span> 
+                                <span class="theme-text-sub opacity-70 text-sm">/ 4.3</span>
+                            </div>
+                        </div>
+                        <div class="theme-bg-panel !bg-white/5 rounded-3xl p-6 border border-white/10 backdrop-blur-md">
+                            <h3 class="card-mini-title !mb-2">Languages</h3>   
+                            <hr class="custom-hr mb-6 ">    
+                            <div class="flex flex-col gap-5">
+                                {% for lang in languages %}
+                                <div class="flex items-center justify-between group">
+                                    <div class="flex items-center gap-3"><span class="text-[14px] font-bold theme-text-main tracking-tight group-hover:text-[var(--accent)] transition-colors">{{ lang.lang_name }}</span></div>
+                                    <span class="lang-tag tag-{{ lang.level_label | lower }}">{{ lang.level_label }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="section-4" class="section-container !h-screen !max-h-screen !overflow-hidden flex items-center justify-center">
+        <div class="w-full h-full flex items-center justify-center p-4 md:p-8">
+            <div class="theme-bg-panel mx-auto rounded-[40px] p-8 md:p-12 flex flex-col gap-8 max-w-[1000px] w-full h-full max-h-[85vh] shadow-2xl relative overflow-hidden backdrop-blur-xl s3-main-panel border border-white/10">
+                <div class="text-center mb-10">
+                    <h1 class="text-4xl md:text-5xl font-archivo theme-text-main uppercase tracking-tighter">Featured <span class="theme-accent">Works</span></h1>
+                    <p class="text-lg theme-text-sub mt-4 opacity-70">Click to view project details.</p>
+                </div>
+                <div class="project-folder-wrapper overflow-y-auto pr-2 custom-scrollbar flex-grow">
+                    <div class="folder-stack w-full max-w-3xl mx-auto pb-20">
+                        {% for project in projects %}
+                        <div class="folder-card {{ 'active' if loop.first else '' }} " style="z-index: {{ loop.index }};" onclick="activateFolder(this)">
+                            <div class="flex justify-between items-center relative z-10">
+                                <h3 class="font-archivo text-lg md:text-xl text-white flex items-center gap-4"><i class="far fa-folder text-[#00f2fe] text-xl"></i> Folder {{ "%02d" | format(loop.index) }}: {{ project.title }}</h3>
+                                <div class="flex items-center gap-4">
+                                    <span class="hidden md:block px-3 py-1 rounded-full border border-white/10 text-[0.75rem] font-mono text-white/40 uppercase tracking-widest bg-white/5">{{ project.member_type }}</span>
+                                    <i class="fas fa-chevron-down transition-transform duration-500 text-white/20"></i>
+                                </div>
+                            </div>
+                            <div class="folder-content overflow-hidden transition-all duration-500">
+                                <div class="border-t border-white/5 mt-6 pt-8">
+                                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-8">
+                                        <div class="md:col-span-5">
+                                            {% if project.image_url %}
+                                            <div class="aspect-video rounded-xl overflow-hidden border border-white/10 bg-black/40 shadow-inner"><img src="{{ project.image_url }}" class="w-full h-full object-cover" alt="{{ project.title }}"></div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="md:col-span-7"><p class="text-[20px] text-gray-300 leading-relaxed font-light">{{ project.description }}</p></div>
+                                    </div>
+                                    <div class="w-full border-t border-white/10 my-8"></div>
+                                    <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-4">
+                                        <div class="flex flex-wrap gap-3 items-center">                      
+                                            {% if project.tech_stack %}
+                                                {% for tech in project.tech_stack.split(',') %}<span class="tag-item bg-white/5 px-3 py-1.5 rounded-xl text-[0.75rem] font-mono text-white/50 uppercase tracking-wider"><span class="text-[var(--accent)] font-bold text-[16px]">#</span> &nbsp;{{ tech.strip() }}</span>{% endfor %}
+                                            {% else %}<span class="text-white/20 text-[0.85rem] italic font-light">No Tech Stack Info</span>{% endif %}
+                                        </div>
+                                        <a href="{{ project.project_url }}" target="_blank" class="flex-shrink-0 text-[0.85rem] font-mono border border-[#00f2fe] text-[#00f2fe] px-10 py-3.5 rounded-2xl hover:bg-[#00f2fe] hover:text-black transition-all duration-500 uppercase tracking-widest shadow-[0_0_20px_rgba(0,242,254,0.15)]" onclick="event.stopPropagation();">Launch Project <i class="fas fa-external-link-alt ml-2 text-[12px]"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/background.js') }}"></script>
+</body>
+</html>
