@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="portfolio.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2100"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="about_features" custom_title="0" dock_id="2" table="4,14:mainabout_features"/><dock_state state="000000ff00000000fd00000001000000020000000000000000fc0100000002fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000ffffffff0000010e00ffffff000000000000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">-- 1. 기존 테이블 삭제 (초기화용)
+DROP TABLE IF EXISTS about_features;
+DROP TABLE IF EXISTS certificates;
+DROP TABLE IF EXISTS core_strenghts;
+DROP TABLE IF EXISTS coursework;
+DROP TABLE IF EXISTS experience;
+DROP TABLE IF EXISTS languages;
+DROP TABLE IF EXISTS profile;
+DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS reference;
+DROP TABLE IF EXISTS skills;
+
+-- 2. 테이블 생성 및 데이터 삽입
+
+-- about_features
+CREATE TABLE about_features (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  icon TEXT,
+  title TEXT,
+  content TEXT
+);
+INSERT INTO about_features VALUES (1,'fa-graduation-cap','Academic Foundation','Graduated in Information Management with a focus on systems, data, and digital processes.');
+INSERT INTO about_features VALUES (2,'fa-cloud','Cloud &amp; Security Interest','AWS Certified Cloud Practitioner, building foundational knowledge in cloud infrastructure.');
+INSERT INTO about_features VALUES (3,'fa-plane-departure','Next Chapter','Relocating to Vancouver, Canada (March 2026)');
+
+-- certificates
+CREATE TABLE certificates (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  type TEXT NOT NULL,
+  title TEXT NOT NULL,
+  issuer TEXT,
+  date TEXT,
+  icon_type TEXT,
+  credential_url TEXT,
+  issuing_org TEXT,
+  is_expired INTEGER
+);
+INSERT INTO certificates VALUES (1,'IT','AWS Certified Cloud Practitioner','Amazon Web Services','2024-01','fa-cloud',NULL,'AWS',0);
+INSERT INTO certificates VALUES (2,'Language','Chinese Language Proficiency','Official Authority','2023-12','fa-language',NULL,'Language Institute',0);
+INSERT INTO certificates VALUES (3,'Design','Craftsman Web Design&lt;br&gt;(Written Exam)','HRD Korea','2024-02','fa-paint-brush',NULL,'HRD Korea',1);
+INSERT INTO certificates VALUES (4,'General','Korean History Proficiency Test','NISH','2023-10','fa-history',NULL,'NISH',0);
+INSERT INTO certificates VALUES (5,'Language','English Language Proficiency','Official Authority','2024-01','fa-globe',NULL,'Language Institute',0);
+
+-- core_strenghts
+CREATE TABLE core_strenghts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  strength_name TEXT,
+  icon_class TEXT,
+  display_order INTEGER
+);
+INSERT INTO core_strenghts VALUES (1,'Creative Thinker','fas fa-lightbulb',1);
+INSERT INTO core_strenghts VALUES (2,'High Responsibility','fas fa-check-circle',2);
+INSERT INTO core_strenghts VALUES (3,'Problem Solver','fas fa-puzzle-piece',3);
+INSERT INTO core_strenghts VALUES (4,'Fast Learner','fas fa-bolt',4);
+
+-- coursework
+CREATE TABLE coursework (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  subject_name TEXT NOT NULL,
+  grade TEXT NOT NULL,
+  category TEXT,
+  display_order INTEGER DEFAULT 0
+);
+INSERT INTO coursework VALUES (1,'Database Management','A','Major',1);
+INSERT INTO coursework VALUES (2,'System Analysis and Design','A','Major',2);
+INSERT INTO coursework VALUES (3,'Software Project Management','A+','Major',3);
+INSERT INTO coursework VALUES (4,'R Programming','A+','Elective',4);
+INSERT INTO coursework VALUES (5,'Web Design for Financial Statement','A','Elective',5);
+
+-- experience
+CREATE TABLE experience (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  category TEXT,
+  organization TEXT,
+  role TEXT,
+  start_year TEXT,
+  start_month TEXT,
+  is_present INTEGER,
+  description TEXT,
+  location TEXT,
+  city TEXT
+);
+INSERT INTO experience VALUES (1,'WORK','Career Transition &amp; Relocation','Pre-landing Preparation','2026','02',1,'Intensive full-stack development upskilling (Python, Flask, MySQL) and strategic relocation preparation for Vancouver, Canada.','Taiwan','Taoyuan');
+INSERT INTO experience VALUES (2,'EDUCATION','Chung Yuan Christian University (CYCU)','BBA in Information Management &lt;br&gt;(2022 - 2026)','2026','02',0,'Academic focus on Database Management, Systems Analysis, and Business Intelligence.','Taiwan','Taoyuan');
+INSERT INTO experience VALUES (3,'WORK','Chungcheongnam-do Office of Education','Korean-Chinese Interpreter','2023','05',0,'Provided professional interpretation for the educational delegation visit, facilitating smooth communication between Korean and Chinese officials.','Taiwan','Taoyuan');
+INSERT INTO experience VALUES (4,'WORK','Private Language Tutoring','Korean Language Instructor','2024','03',0,'Developed and delivered customized Korean language lessons for Mandarin speakers, focusing on conversational fluency and cultural understanding.','Taiwan','Taoyuan');
+INSERT INTO experience VALUES (5,'AWARD','Database Management Systems','Academic Excellence Award (Ranked 2nd)','2024','06',0,'Achieved top-tier academic performance, ranking 2nd in the class for Database Systems design and implementation.','Taiwan','Taoyuan');
+INSERT INTO experience VALUES (6,'AWARD','System Analysis and Design','Outstanding System Design Award','2024','12',0,'Recognized for excellence in designing complex information systems and creating structured architectural blueprints.','Taiwan','Taoyuan');
+INSERT INTO experience VALUES (7,'AWARD','Capstone Project &amp; Academic Honors','Best Design &amp; Dean''s List','2025','12',0,'Awarded Best Poster Design for the graduation project and maintained Dean''s List standing with significant academic progress.','Taiwan','Taoyuan');
+INSERT INTO experience VALUES (8,'WORK','Cheil Electric','Technical Test Assistant','2017','03',0,'Performed electrical current measurement and quality assurance testing for switch components.','Korea','Busan');
+INSERT INTO experience VALUES (9,'WORK','Retail Market','Sales &amp; Inventory Associate','2020','01',0,'Managed customer service and inventory while preparing for international studies in Taiwan.','Korea','Seoul');
+INSERT INTO experience VALUES (10,'WORK','Veterinary Clinic','Veterinary Assistant &amp; Receptionist','2021','01',0,'Managed front desk operations, assisted in medical treatments, and prepared veterinary prescriptions.','Korea','Seoul');
+
+-- languages
+CREATE TABLE languages (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  lang_name TEXT NOT NULL,
+  level_label TEXT NOT NULL,
+  icon_class TEXT,
+  display_order INTEGER DEFAULT 0
+);
+INSERT INTO languages VALUES (1,'KOREAN','C2','https://flagcdn.com/w40/kr.png',1);
+INSERT INTO languages VALUES (2,'CHINESE','C1','https://flagcdn.com/w160/cn.png',2);
+INSERT INTO languages VALUES (3,'ENGLISH','B2','https://flagcdn.com/w40/us.png',3);
+INSERT INTO languages VALUES (4,'JAPANESE','A2','https://flagcdn.com/w160/jp.png',4);
+
+-- profile
+CREATE TABLE profile (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  title TEXT NOT NULL,
+  location TEXT,
+  bio TEXT,
+  sub_text TEXT,
+  description TEXT,
+  city TEXT,
+  cv_url TEXT,
+  github_url TEXT,
+  linkedin_url TEXT,
+  email_address TEXT,
+  profile_image TEXT,
+  gpa TEXT,
+  university TEXT
+);
+INSERT INTO profile VALUES (1,'CHOA LEE','Information Management','Canada','Passionate junior software engineer with a growing foundation in cloud infrastructure (AWS) and web development. Eager to build scalable, secure, and automated systems.','Building efficient workflows that turn complex data into actionable automation.','I graduated in &lt;b class=&quot;theme-accent&quot;&gt;Information Management&lt;/b&gt;, focusing on systems, data, and digital processes. Through academic and practical projects, I gained experience in structuring workflows and automating repetitive tasks using tools like n8n and Google Workspace, improving both efficiency and data clarity. &lt;br&gt;&amp;nbsp;&amp;nbsp;I am also building foundational knowledge in cloud infrastructure and cybersecurity, including AWS Certified Cloud Practitioner training. This complements my workflow experience, preparing me for IT operations roles and future growth into cloud- and security-focused domains. &lt;br&gt;&amp;nbsp;&amp;nbsp;I am ready to relocate to Vancouver, Canada in March 2026, aiming to contribute to IT operations while developing skills that bridge workflow automation and cloud security. My goal is to design clear, manageable systems that scale effectively and support long-term organizational growth.','Vancouver','https://drive.google.com/file/d/1j9bazhW2dDGcVAmnCMMm9tPS59AUwO7j/view?https://drive.google.com/uc?export=download&amp;id=1j9bazhW2dDGcVAmnCMMm9tPS59AUwO7j',NULL,'www.linkedin.com/in/','lee.choa.a@gmail.com','https://lh3.googleusercontent.com/u/0/d/1YFQJ2zSdh6QqmhpBHH84WxL6zhLKXbmv','3.44 / 4.3 (A-)','Chung Yuan Christian University');
+
+-- projects
+CREATE TABLE projects (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  tech_stack TEXT,
+  description TEXT,
+  image_url TEXT,
+  project_url TEXT,
+  member_type TEXT,
+  is_visible INTEGER DEFAULT 0
+);
+INSERT INTO projects VALUES (1,'Senior Healthcare App','Firebase, n8n, MongoDB','AI-driven healthcare system featuring wearable data syncing, emotion tracking, and medication alerts.','https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;q=80&amp;w=1000','https://github.com/HaopingLi/healthcare-app','TEAM',1);
+INSERT INTO projects VALUES (2,'Automation Workflow','n8n, Python, API','Business process automation connecting LINE Bots and Google Sheets to streamline repetitive tasks.','https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&amp;fit=crop&amp;q=80&amp;w=1000','','TEAM',1);
+INSERT INTO projects VALUES (3,'Data Analysis Dash','Python, Power BI, MySQL','E-commerce and user behavior data visualization with optimized SQL queries and predictive modeling.','auto=format&amp;fit=crop&amp;q=80&amp;w=1000','','ALONE',0);
+INSERT INTO projects VALUES (4,'Web Security Audit','OWASP Top 10, SQLi, XSS','Comprehensive security audit of web applications, testing for SQL injection and cross-site scripting.','auto=format&amp;fit=crop&amp;q=80&amp;w=1000','','ALONE',0);
+INSERT INTO projects VALUES (5,'AWS Cloud Deployment','AWS S3, EC2, RDS','Scalable cloud infrastructure setup featuring static site hosting and secure database integration.','auto=format&amp;fit=crop&amp;q=80&amp;w=1000','','ALONE',0);
+
+-- reference
+CREATE TABLE reference (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  experience_id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  title TEXT NOT NULL,
+  organization TEXT NOT NULL,
+  email TEXT,
+  linkedin_url TEXT,
+  relationship TEXT,
+  content TEXT NOT NULL,
+  image_url TEXT,
+  is_visible INTEGER DEFAULT 1,
+  FOREIGN KEY (experience_id) REFERENCES experience (id) ON DELETE CASCADE
+);
+INSERT INTO reference VALUES (1,2,'Liam Robinson','Senior Engineer','Lam Research Manufacturing','liam.robinson@lamresearch.com','https://www.linkedin.com/in/liam-robinson','Supervisor','Choa demonstrates exceptional analytical skills in hardware testing. A highly reliable team member.',NULL,1);
+
+-- skills
+CREATE TABLE skills (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  skill_name TEXT,
+  orbit_ring INTEGER DEFAULT 0,
+  icon_class TEXT,
+  proficiency_percent INTEGER DEFAULT 0,
+  is_main INTEGER DEFAULT 0
+);
+INSERT INTO skills VALUES (1,'MySQL',0,'fas fa-database',90,1);
+INSERT INTO skills VALUES (2,'Excel',0,'fas fa-file-excel',92,1);
+INSERT INTO skills VALUES (3,'Python',1,'fab fa-python',75,1);
+INSERT INTO skills VALUES (4,'n8n',1,'fas fa-project-diagram',72,1);
+INSERT INTO skills VALUES (5,'Tomcat',1,'fas fa-server',68,1);
+INSERT INTO skills VALUES (6,'JS / HTML',1,'fab fa-js-square',73,1);
+INSERT INTO skills VALUES (7,'AWS',1,'fab fa-aws',70,1);
+INSERT INTO skills VALUES (8,'Git',1,'fab fa-git-alt',75,1);
+INSERT INTO skills VALUES (9,'Java',2,'fab fa-java',50,1);
+INSERT INTO skills VALUES (10,'C',2,'fas fa-code',45,1);
+INSERT INTO skills VALUES (11,'Figma',2,'fab fa-figma',40,1);
+INSERT INTO skills VALUES (12,'R',2,'fas fa-chart-line',35,1);
+INSERT INTO skills VALUES (13,'PowerBI',2,'fas fa-chart-bar',38,1);</sql><current_tab id="0"/></tab_sql></sqlb_project>

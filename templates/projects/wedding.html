@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Wedding Invitation System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+        .snap-container {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        header, section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #fdfbfb; color: #4a4a4a; }
+        .serif-title { font-family: 'Dancing Script', cursive; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 182, 193, 0.3); }
+        #sticky-nav { transform: translateY(-100%); transition: all 0.5s ease-in-out; }
+        #sticky-nav.visible { transform: translateY(0); }
+        .nav-link { position: relative; transition: color 0.3s; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -4px; left: 0;
+            background-color: #ff8a8a;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .snap-container::-webkit-scrollbar { width: 6px; }
+        .snap-container::-webkit-scrollbar-thumb { background-color: rgba(212, 163, 163, 0.5); border-radius: 10px; }
+
+/* [핵심] 봉투와 카드를 감싸는 컨테이너 */
+    .envelope-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        height: 400px;
+        margin: 400px auto 0;
+        perspective: 1000px;
+    }
+
+    /* 1. 봉투 뒷면 (가장 뒤) */
+    .envelope-back {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 250px;
+        background: #4a90bc;
+        border-radius: 0 0 15px 15px;
+        z-index: 1;
+    }
+
+    /* 2. 봉투 앞면 (V자 컷팅 - 카드보다 아래 레이어) */
+    .envelope-front {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 250px;
+        background: #5dade2;
+        clip-path: polygon(0 0, 0% 100%, 100% 100%, 100% 0, 50% 45%);
+        z-index: 2; /* 카드(z-index 3)보다 낮음 */
+        border-radius: 0 0 15px 15px;
+    }
+
+    /* 3. [핵심] 청첩장 카드 (봉투를 뚫고 나와 화면 중앙으로 확대) */
+    .invitation-card-pop {
+        position: absolute;
+        bottom: 20px;
+        left: 50%; /* 중앙 정렬 시작점 */
+        width: 90%;
+        max-width: 450px;
+        background: #fdfcf8;
+        padding: 3rem 2rem;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        z-index: 3; /* 봉투 앞면(z-index 2)보다 높음 -> 위로 올라옴 */
+        opacity: 0;
+        
+        /* 초기 상태: 중앙 정렬 유지하며 봉투 안에 작게 숨음 */
+        transform: translate(-50%, 20px) scale(0.7); 
+        transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        border-radius: 10px;
+        border: 1px solid #eee;
+    }
+
+    /* [활성화 상태] 카드가 위로 솟구치며 정중앙에 고정되고 커짐 */
+    .is-visible .invitation-card-pop {
+        opacity: 1;
+        /* 화면 중앙으로 이동: Y축을 크게 마이너스로 올리고, scale로 확대 */
+        /* translateX(-50%)를 유지해야 가로 중앙이 고정됨 */
+        transform: translate(-50%, -240px) scale(1.3); 
+        box-shadow: 0 40px 100px rgba(0,0,0,0.25);
+    }
+    </style>
+</head>
+<body>
+
+    <nav id="sticky-nav" class="fixed top-0 left-0 w-full z-50 glass-card py-4 px-8 flex justify-between items-center shadow-sm">
+        <div class="serif-title text-2xl text-[#d4a3a3]">T-BONE Project</div>
+        <div class="flex gap-6 text-sm font-medium text-gray-500 items-center">
+            <a href="#hero" class="nav-link hover:text-[#ff8a8a]" data-ko="Home" data-en="Home">Home</a>
+            <a href="#overview" class="nav-link hover:text-[#ff8a8a]" data-ko="Overview" data-en="Overview">Overview</a>
+            <a href="#problem" class="nav-link hover:text-[#ff8a8a]" data-ko="Challenge" data-en="Challenge">Challenge</a>
+            <a href="#experience" class="nav-link hover:text-[#ff8a8a]" data-ko="User Flow" data-en="User Flow">User Flow</a>
+            <a href="#architecture" class="nav-link hover:text-[#ff8a8a]" data-ko="System" data-en="System">System</a>
+            <a href="#management" class="nav-link hover:text-[#ff8a8a]" data-ko="Management" data-en="Management">Management</a>
+            
+            <div class="flex border border-gray-200 rounded-full px-2 py-1 ml-2 bg-white/50">
+                <button onclick="changeLang('ko')" class="px-2 hover:text-[#ff8a8a] text-[10px] font-bold border-r border-gray-200">KO</button>
+                <button onclick="changeLang('en')" class="px-2 hover:text-[#ff8a8a] text-[10px] font-bold">EN</button>
+            </div>
+            <a href="/" class="hover:text-[#ff8a8a] transition-colors ml-2"><i class="fas fa-home"></i></a>
+        </div>
+    </nav>
+
+    <div class="snap-container" id="main-scroll">
+        
+        <header id="hero" class="relative bg-gradient-to-b from-[#fff5f5] to-white">
+            <div class="w-full text-center z-10 px-4">
+                <span class="text-[#ff8a8a] uppercase tracking-[0.3em] text-sm mb-4 block" data-ko="Software Project Management" data-en="Software Project Management">Software Project Management</span>
+                <h1 class="serif-title text-5xl md:text-8xl text-[#d4a3a3] mb-4 leading-tight">
+                    Interactive Invitations & <br class="hidden md:block"> Reminiscence Videos
+                </h1>
+                <p class="text-xl md:text-2xl font-light text-gray-500 max-w-2xl mx-auto leading-relaxed" data-ko="AI 기술로 전하는 초개인화된 결혼식 초대 시스템" data-en="A hyper-personalized wedding invitation system powered by AI.">
+                </p>
+                <div class="mt-12 animate-bounce text-[#ffb6b1]"><i class="fas fa-chevron-down text-3xl"></i></div>
+            </div>
+        </header>
+
+        <section id="overview" class="relative flex items-center justify-center px-6 overflow-hidden min-h-screen bg-[#f8f9fa]">
+            <div class="absolute inset-0 z-0 " style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80'); background-size: cover; background-position: center;"></div>
+            
+            <div class="max-w-4xl mx-auto w-full flex flex-col items-center">
+                <div class="envelope-wrapper">
+                    <div class="envelope-back"></div>
+                    
+                    <div class="invitation-card-pop text-center">
+                        <div class="space-y-4">
+                            <h3 class="text-gray-400 text-left text-xs font-bold" data-ko="안녕, 하객 여러분!" data-en="Hello Guests,">Hello Guests,</h3>
+                            <p class="text-[#ff8a8a] text-[10px] tracking-[0.4em] uppercase font-bold">AI INNOVATION</p>
+                            <h2 class="text-2xl md:text-3xl font-bold text-[#4a90bc] serif-title">Smart & Personal Invitation</h2>
+                            
+                            <div class="w-12 h-[1px] bg-[#4a90bc]/30 mx-auto"></div>
+
+                            <p class="text-gray-600 text-xs md:text-sm leading-relaxed" 
+                            data-ko="우리 팀은 기존의 획일적인 제작형 청첩장에서 벗어나, 하객의 데이터와 추억을 기반으로 한 초개인화된 디지털 초대 경험을 설계했습니다. GPT-4의 지능과 D-ID의 생동감을 결합하여, 모든 하객에게 이름과 추억이 담긴 단 하나의 맞춤형 영상을 자동으로 생성하고 전달합니다." 
+                            data-en="Designed hyper-personalized digital experiences based on guest data and memories, moving away from uniform template invitations.">
+                            
+                            </p>
+
+                            <div class="pt-4 border-t border-gray-100 flex justify-center gap-8">
+                                <div class="text-center">
+                                    <span class="text-xl block">💍</span>
+                                    <span class="text-[9px] font-bold text-gray-400 uppercase">Personalized</span>
+                                </div>
+                                <div class="text-center">
+                                    <span class="text-xl block">🤖</span>
+                                    <span class="text-[9px] font-bold text-gray-400 uppercase">Automation</span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-[#4a90bc] font-bold text-sm pt-3 italic">Experience the Future of Wedding.</p>
+                        </div>
+                    </div>
+
+                    <div class="envelope-front"></div>
+                </div>
+                
+                <p class="mt-20 text-gray-400 text-[10px] tracking-widest animate-pulse">SCROLL TO OPEN</p>
+            </div>
+        </section>
+
+
+
+        <section id="problem" class="bg-[#fffafa] px-6">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-5 gap-12 items-center w-full">
+                <div class="md:col-span-3 space-y-8">
+                    <h2 class="text-3xl font-bold border-l-4 border-red-400 pl-4 text-red-600 italic" data-ko="Technical Challenge" data-en="Technical Challenge">Technical Challenge</h2>
+                    <p class="text-gray-700 min-h-[60px]" data-ko="n8n 상에서 LINE 메시지 데이터를 직접 파싱하는 과정의 기술적 제약을 발견했습니다. [cite: 16, 47]" data-en="Discovered technical constraints in directly parsing LINE messaging data within n8n. [cite: 16, 47]">
+                        n8n 상에서 LINE 메시지 데이터를 직접 파싱하는 과정의 기술적 제약을 발견했습니다.
+                    </p>
+                    <h2 class="text-3xl font-bold border-l-4 border-green-400 pl-4 text-green-600 italic" data-ko="Resolution" data-en="Resolution">Resolution</h2>
+                    <p class="text-gray-700 min-h-[60px]" data-ko="데이터 전송 경로를 Gmail API 연동으로 전환하여 완전 자동화 파이프라인을 성공적으로 구축했습니다. [cite: 16, 25]" data-en="Successfully built a full automation pipeline by switching the data transmission path to Gmail API integration. [cite: 16, 25]">
+                        데이터 전송 경로를 Gmail API 연동으로 전환하여 완전 자동화 파이프라인을 성공적으로 구축했습니다.
+                    </p>
+                </div>
+                <div class="md:col-span-2 flex justify-center text-gray-300">
+                    <i class="fas fa-tools text-9xl"></i>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="bg-white px-6 text-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <h2 class="text-3xl font-bold mb-12" data-ko="The Guest Journey" data-en="The Guest Journey">The Guest Journey</h2>
+                <div class="grid md:grid-cols-3 gap-8 items-stretch">
+                    <div class="step-card bg-[#fffafa] p-8 rounded-[2rem] shadow-sm flex flex-col">
+                        <div class="w-10 h-10 bg-pink-100 text-[#ff8a8a] rounded-lg flex items-center justify-center mb-4 mx-auto font-bold">01</div>
+                        <h4 class="font-bold text-lg mb-2" data-ko="개인화 알림" data-en="Personalized Alert">개인화 알림</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed mb-4 flex-grow" data-ko="AI가 하객의 이름을 직접 부르며 추억을 언급하는 메시지를 전달합니다. [cite: 236]" data-en="AI mentions the guest's name and delivers a message recalling shared memories. [cite: 236]">AI가 하객의 이름을 직접 부르며 추억을 언급하는 메시지를 전달합니다.</p>
+                        <div class="bg-white p-3 rounded-lg text-[10px] text-gray-400 italic border-l-2 border-pink-200">"Hey Lemon!"</div>
+                    </div>
+                    <div class="step-card bg-[#fffafa] p-8 rounded-[2rem] shadow-sm flex flex-col">
+                        <div class="w-10 h-10 bg-pink-100 text-[#ff8a8a] rounded-lg flex items-center justify-center mb-4 mx-auto font-bold">02</div>
+                        <h4 class="font-bold text-lg mb-2" data-ko="AI 영상 재생" data-en="AI Video Playback">AI 영상 재생</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed mb-4 flex-grow" data-ko="D-ID 기반 AI 아바타가 실제 목소리로 예식 정보를 상세히 안내합니다. [cite: 37]" data-en="AI avatar based on D-ID provides wedding details with a realistic voice. [cite: 37]">D-ID 기반 AI 아바타가 실제 목소리로 예식 정보를 상세히 안내합니다.</p>
+                        <div class="aspect-video bg-gray-200 rounded-xl flex items-center justify-center text-gray-400"><i class="fas fa-play-circle text-2xl"></i></div>
+                    </div>
+                    <div class="step-card bg-[#fffafa] p-8 rounded-[2rem] shadow-sm flex flex-col">
+                        <div class="w-10 h-10 bg-pink-100 text-[#ff8a8a] rounded-lg flex items-center justify-center mb-4 mx-auto font-bold">03</div>
+                        <h4 class="font-bold text-lg mb-2" data-ko="피드백" data-en="Feedback">피드백</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed mb-4 flex-grow" data-ko="하객은 영상을 확인한 후 즉시 축하 메시지를 남기거나 RSVP를 완료합니다. [cite: 92, 270]" data-en="Guests leave messages or complete RSVP immediately after watching the video. [cite: 92, 270]">하객은 영상을 확인한 후 즉시 축하 메시지를 남기거나 RSVP를 완료합니다.</p>
+                        <div class="flex justify-center gap-2"><span class="px-2 py-1 bg-white border rounded text-[9px] font-bold">#RSVP</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture" class="bg-[#fff9f9] px-6 text-center">
+            <div class="max-w-6xl mx-auto w-full space-y-8">
+                <h2 class="text-3xl font-bold" data-ko="System Architecture" data-en="System Architecture">System Architecture</h2>
+                
+                <div class="glass-card p-10 rounded-[3rem] shadow-xl border-2 border-white max-w-4xl mx-auto">
+                    <div class="aspect-[16/7] bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 text-gray-400 mb-6 italic"><i class="fas fa-project-diagram mr-2"></i>n8n Automation Pipeline [cite: 58]</div>
+                    <div class="grid grid-cols-4 gap-4 text-center">
+                        <div><div class="w-10 h-10 bg-white shadow-sm text-[#ff8a8a] rounded-full flex items-center justify-center mx-auto mb-2 text-sm"><i class="fas fa-bolt"></i></div><h4 class="font-bold text-[10px] uppercase">Webhook</h4></div>
+                        <div><div class="w-10 h-10 bg-white shadow-sm text-[#ff8a8a] rounded-full flex items-center justify-center mx-auto mb-2 text-sm"><i class="fas fa-brain"></i></div><h4 class="font-bold text-[10px] uppercase">GPT-4</h4></div>
+                        <div><div class="w-10 h-10 bg-white shadow-sm text-[#ff8a8a] rounded-full flex items-center justify-center mx-auto mb-2 text-sm"><i class="fas fa-video"></i></div><h4 class="font-bold text-[10px] uppercase">D-ID</h4></div>
+                        <div><div class="w-10 h-10 bg-white shadow-sm text-[#ff8a8a] rounded-full flex items-center justify-center mx-auto mb-2 text-sm"><i class="fas fa-paper-plane"></i></div><h4 class="font-bold text-[10px] uppercase">Gmail</h4></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="management" class="bg-white px-6">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-5 gap-12 items-center w-full">
+                <div class="md:col-span-3 space-y-8">
+                    <h2 class="text-3xl font-bold" data-ko="Management & My Role" data-en="Management & My Role">Management & My Role</h2>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-start min-h-[50px]"><div class="text-[#ff8a8a] font-bold">Role</div><p class="text-gray-600 text-sm" data-ko="시스템 통합 및 전체 자동화 파이프라인 검증 담당" data-en="Responsible for system integration and automation pipeline validation.">시스템 통합 및 전체 자동화 파이프라인 검증 담당</p></div>
+                        <div class="flex gap-4 items-start min-h-[50px]"><div class="text-[#ff8a8a] font-bold">Status</div><p class="text-gray-600 text-sm" data-ko="팀원 전원 목표 달성도 100% 기록 [cite: 56]" data-en="100% goal achievement for all team members [cite: 56]">팀원 전원 목표 달성도 100% 기록</p></div>
+                    </div>
+                </div>
+                <div class="md:col-span-2 flex justify-end">
+                    <div class="bg-white p-4 rounded-[2.5rem] shadow-2xl border border-pink-100 w-full max-w-[280px] ml-auto">
+                        <div class="aspect-[9/16] bg-black rounded-[1.5rem] overflow-hidden mb-4">
+                            <video controls class="w-full h-full object-cover"><source src="wedding-invite-Lemon.mp4" type="video/mp4"></video>
+                        </div>
+                        <p class="text-[10px] text-gray-400 text-center italic" data-ko="AI 맞춤형 초대장 데모" data-en="AI Personalized Demo">AI 맞춤형 초대장 데모</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const stickyNav = document.getElementById('sticky-nav');
+        const scrollContainer = document.getElementById('main-scroll');
+
+        // [최적화] 모든 애니메이션 요소를 한 번에 감시하는 통합 옵저버
+        const observerOptions = {
+            root: scrollContainer, // snap-container 내부 스크롤 감지
+            threshold: 0.2 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        // [중요] 봉투 섹션과 페이드업 요소들 모두 감시 대상으로 등록
+        document.querySelectorAll('.fade-up-element, #overview').forEach(el => observer.observe(el));
+
+        scrollContainer.addEventListener('scroll', () => {
+            if (scrollContainer.scrollTop > 100) stickyNav.classList.add('visible');
+            else stickyNav.classList.remove('visible');
+        });
+
+        function changeLang(lang) {
+            const elements = document.querySelectorAll('[data-ko]');
+            elements.forEach(el => {
+                const translation = el.getAttribute(`data-${lang}`);
+                if (translation) el.textContent = translation;
+            });
+            console.log(`Language changed to: ${lang.toUpperCase()}`);
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => changeLang('ko'));
+    </script>
+</body>
+</html>

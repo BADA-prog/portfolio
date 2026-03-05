@@ -330,7 +330,9 @@
                                                 {% for tech in project.tech_stack.split(',') %}<span class="tag-item bg-white/5 px-3 py-1.5 rounded-xl text-[0.75rem] font-mono text-white/50 uppercase tracking-wider"><span class="text-[var(--accent)] font-bold text-[16px]">#</span> &nbsp;{{ tech.strip() }}</span>{% endfor %}
                                             {% else %}<span class="text-white/20 text-[0.85rem] italic font-light">No Tech Stack Info</span>{% endif %}
                                         </div>
-                                        <a href="{{ project.project_url }}" target="_blank" class="flex-shrink-0 text-[0.85rem] font-mono border border-[#00f2fe] text-[#00f2fe] px-10 py-3.5 rounded-2xl hover:bg-[#00f2fe] hover:text-black transition-all duration-500 uppercase tracking-widest shadow-[0_0_20px_rgba(0,242,254,0.15)]" onclick="event.stopPropagation();">Launch Project <i class="fas fa-external-link-alt ml-2 text-[12px]"></i></a>
+                                        <a href="{{ url_for('project_detail', project_name=project.project_url) }}" 
+                                        class="flex-shrink-0 text-[0.85rem] font-mono border border-[#00f2fe] text-[#00f2fe] px-10 py-3.5 rounded-2xl hover:bg-[#00f2fe] hover:text-black transition-all duration-500 uppercase tracking-widest shadow-[0_0_20px_rgba(0,242,254,0.15)]" 
+                                        onclick="event.stopPropagation();">View Case Study <i class="fas fa-chevron-right ml-2 text-[12px]"></i></a>
                                     </div>
                                 </div>
                             </div>
