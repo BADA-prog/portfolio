@@ -115,7 +115,7 @@
             <a href="#hero" class="nav-link hover:text-[#ff8a8a]" data-ko="Home" data-en="Home">Home</a>
             <a href="#overview" class="nav-link hover:text-[#ff8a8a]" data-ko="Overview" data-en="Overview">Overview</a>
             <a href="#problem" class="nav-link hover:text-[#ff8a8a]" data-ko="Challenge" data-en="Challenge">Challenge</a>
-            <a href="#experience" class="nav-link hover:text-[#ff8a8a]" data-ko="User Flow" data-en="User Flow">User Flow</a>
+            <a href="#user-flow" class="nav-link hover:text-[#ff8a8a]" data-ko="User Flow" data-en="User Flow">User Flow</a>
             <a href="#architecture" class="nav-link hover:text-[#ff8a8a]" data-ko="System" data-en="System">System</a>
             <a href="#management" class="nav-link hover:text-[#ff8a8a]" data-ko="Management" data-en="Management">Management</a>
             
@@ -156,7 +156,7 @@
                             
                             <div class="w-12 h-[1px] bg-[#4a90bc]/30 mx-auto"></div>
 
-                            <p class="text-gray-600 text-xs md:text-sm leading-relaxed" 
+                            <p class="text-gray-600 text-xs md:text-sm leading-relaxed" style="text-align: left;"
                             data-ko="우리 팀은 기존의 획일적인 제작형 청첩장에서 벗어나, 하객의 데이터와 추억을 기반으로 한 초개인화된 디지털 초대 경험을 설계했습니다. GPT-4의 지능과 D-ID의 생동감을 결합하여, 모든 하객에게 이름과 추억이 담긴 단 하나의 맞춤형 영상을 자동으로 생성하고 전달합니다." 
                             data-en="Designed hyper-personalized digital experiences based on guest data and memories, moving away from uniform template invitations.">
                             
@@ -184,51 +184,214 @@
             </div>
         </section>
 
-
-
-        <section id="problem" class="bg-[#fffafa] px-6">
-            <div class="max-w-6xl mx-auto grid md:grid-cols-5 gap-12 items-center w-full">
-                <div class="md:col-span-3 space-y-8">
-                    <h2 class="text-3xl font-bold border-l-4 border-red-400 pl-4 text-red-600 italic" data-ko="Technical Challenge" data-en="Technical Challenge">Technical Challenge</h2>
-                    <p class="text-gray-700 min-h-[60px]" data-ko="n8n 상에서 LINE 메시지 데이터를 직접 파싱하는 과정의 기술적 제약을 발견했습니다. [cite: 16, 47]" data-en="Discovered technical constraints in directly parsing LINE messaging data within n8n. [cite: 16, 47]">
-                        n8n 상에서 LINE 메시지 데이터를 직접 파싱하는 과정의 기술적 제약을 발견했습니다.
-                    </p>
-                    <h2 class="text-3xl font-bold border-l-4 border-green-400 pl-4 text-green-600 italic" data-ko="Resolution" data-en="Resolution">Resolution</h2>
-                    <p class="text-gray-700 min-h-[60px]" data-ko="데이터 전송 경로를 Gmail API 연동으로 전환하여 완전 자동화 파이프라인을 성공적으로 구축했습니다. [cite: 16, 25]" data-en="Successfully built a full automation pipeline by switching the data transmission path to Gmail API integration. [cite: 16, 25]">
-                        데이터 전송 경로를 Gmail API 연동으로 전환하여 완전 자동화 파이프라인을 성공적으로 구축했습니다.
+        <section id="problem-solution" class="bg-[#fffcfc] py-24 px-6 font-sans">
+            <div class="max-w-6xl mx-auto space-y-20"> <div class="text-center space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 tracking-tight italic">
+                        Technical <span class="text-[#ff8a8a]">Challenge</span> & 
+                        <span class="text-[#d4a373]">Resolution</span>
+                    </h2>
+                    <div class="w-16 h-1 bg-[#ff8a8a] mx-auto rounded-full"></div>
+                    <p class="text-gray-500 font-medium">
+                        프로젝트 진행 중 발생한 기술적 문제와 이를 해결한 전략적 의사결정
                     </p>
                 </div>
-                <div class="md:col-span-2 flex justify-center text-gray-300">
-                    <i class="fas fa-tools text-9xl"></i>
+
+                <div class="grid md:grid-cols-2 gap-x-16 gap-y-12 items-stretch">
+
+                    <div class="group bg-white p-10 rounded-[2.5rem] shadow-[0_10px_30px_rgba(0,0,0,0.02)] border border-gray-100 hover:shadow-[0_25px_50px_rgba(255,138,138,0.15)] hover:-translate-y-2 transition-all duration-500 ease-out relative overflow-hidden flex flex-col h-full">
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-[#ff8a8a] opacity-[0.03] rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+
+                        <div class="flex items-center space-x-4 mb-8 relative">
+                            <div class="bg-[#fff0f0] p-4 rounded-2xl text-[#ff8a8a] group-hover:bg-[#ff8a8a] group-hover:text-white transition-colors duration-300">
+                                <i class="fas fa-tools text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">Technical Challenge</h3>
+                        </div>
+
+                        <div class="space-y-8 relative flex-grow">
+                            <div>
+                                <span class="inline-block px-3 py-1 bg-[#fff0f0] text-[#ff8a8a] text-xs font-black uppercase tracking-widest rounded-full mb-3">Problem</span>
+                                <p class="text-gray-600 leading-relaxed"
+                                data-ko="n8n과 LINE Messaging API 연동 과정에서 웹훅 보안 설정 문제로 이벤트 데이터 수신이 지연되었습니다. 프로젝트 마감이 임박한 상황에서 이 문제는 전체 시연 일정에 영향을 줄 수 있는 중요한 기술적 병목이었습니다."
+                                data-en="While integrating n8n with the LINE Messaging API, webhook security configuration issues delayed event data reception, creating a critical bottleneck close to the project deadline.">
+                                </p>
+                            </div>
+                            <div class="pt-6 border-t border-gray-50 mt-auto">
+                                <span class="inline-block px-3 py-1 bg-green-50 text-green-500 text-xs font-black uppercase tracking-widest rounded-full mb-3">Resolution</span>
+                                <p class="text-gray-600 leading-relaxed"
+                                data-ko="프로젝트 일정 준수를 위해 Gmail API를 활용한 대체 전송 채널을 먼저 구현하여 전체 워크플로우를 기한 내 완성했습니다. 이후 웹훅 문제의 원인을 분석하여 발표 직전 LINE Messaging API 연동까지 성공적으로 완료했습니다."
+                                data-en="To ensure the deadline was met, I temporarily switched the message delivery channel to Gmail API and completed the core workflow. After identifying the webhook issue, the LINE Messaging API integration was successfully completed before the final presentation.">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group bg-white p-10 rounded-[2.5rem] shadow-[0_10px_30px_rgba(0,0,0,0.02)] border border-gray-100 hover:shadow-[0_25px_50px_rgba(212,163,115,0.15)] hover:-translate-y-2 transition-all duration-500 ease-out relative overflow-hidden flex flex-col h-full">
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-[#d4a373] opacity-[0.03] rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+
+                        <div class="flex items-center space-x-4 mb-8 relative">
+                            <div class="bg-[#faf3eb] p-4 rounded-2xl text-[#d4a373] group-hover:bg-[#d4a373] group-hover:text-white transition-colors duration-300">
+                                <i class="fas fa-users text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">Team Collaboration</h3>
+                        </div>
+
+                        <div class="space-y-8 relative flex-grow">
+                            <div>
+                                <span class="inline-block px-3 py-1 bg-[#fff0f0] text-[#ff8a8a] text-xs font-black uppercase tracking-widest rounded-full mb-3">Problem</span>
+                                <p class="text-gray-600 leading-relaxed"
+                                data-ko="팀 프로젝트 진행 중 시간 효율을 위해 한 명의 결과물을 대표 결과로 제출하자는 의견이 있었습니다. 그러나 이는 협업의 가치와 프로젝트 목표인 초개인화 경험 구현에 한계가 있다고 판단했습니다."
+                                data-en="During the team project, a proposal suggested submitting a single member’s prototype for efficiency. However, this approach limited collaboration and did not support our goal of hyper-personalized invitations.">
+                                </p>
+                            </div>
+                            <div class="pt-6 border-t border-gray-50 mt-auto">
+                                <span class="inline-block px-3 py-1 bg-green-50 text-green-500 text-xs font-black uppercase tracking-widest rounded-full mb-3">Resolution</span>
+                                <p class="text-gray-600 leading-relaxed"
+                                data-ko="6명의 팀원이 GPT 프롬프트 설계, 영상 API 연동, 데이터 관리 등 워크플로우 단계를 분담하도록 구조를 재구성했습니다. 그 결과 하객마다 서로 다른 초대장이 생성되는 자동화 시스템을 구축할 수 있었습니다."
+                                data-en="The workflow was reorganized so each of the six members handled different components such as GPT prompt design, video API integration, and data management, enabling a fully automated hyper-personalized invitation system.">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <section id="experience" class="bg-white px-6 text-center">
-            <div class="max-w-6xl mx-auto w-full">
-                <h2 class="text-3xl font-bold mb-12" data-ko="The Guest Journey" data-en="The Guest Journey">The Guest Journey</h2>
-                <div class="grid md:grid-cols-3 gap-8 items-stretch">
-                    <div class="step-card bg-[#fffafa] p-8 rounded-[2rem] shadow-sm flex flex-col">
-                        <div class="w-10 h-10 bg-pink-100 text-[#ff8a8a] rounded-lg flex items-center justify-center mb-4 mx-auto font-bold">01</div>
-                        <h4 class="font-bold text-lg mb-2" data-ko="개인화 알림" data-en="Personalized Alert">개인화 알림</h4>
-                        <p class="text-xs text-gray-500 leading-relaxed mb-4 flex-grow" data-ko="AI가 하객의 이름을 직접 부르며 추억을 언급하는 메시지를 전달합니다. [cite: 236]" data-en="AI mentions the guest's name and delivers a message recalling shared memories. [cite: 236]">AI가 하객의 이름을 직접 부르며 추억을 언급하는 메시지를 전달합니다.</p>
-                        <div class="bg-white p-3 rounded-lg text-[10px] text-gray-400 italic border-l-2 border-pink-200">"Hey Lemon!"</div>
+        <section id="user-journey-triple" class="bg-[#fffcfc] py-24 px-6 font-sans" 
+                x-data="{ 
+                    activeTab: 'bride', 
+                    subStep: 'step1',
+                    isPlaying: false,
+                    // 자동 다음 단계 전환 함수
+                    nextStep() {
+                        const maxStep = this.activeTab === 'bride' ? 3 : 4;
+                        const currentNum = parseInt(this.subStep.replace('step', ''));
+                        
+                        if (currentNum < maxStep) {
+                            this.subStep = 'step' + (currentNum + 1);
+                        } else {
+                            // 마지막 단계면 다시 1번으로 (원치 않으시면 이 줄을 지우고 isPlaying = false만 남기세요)
+                            this.subStep = 'step1';
+                        }
+                        
+                        // 다음 영상 준비 (자동 재생을 원하시면 이 부분을 수정)
+                        this.isPlaying = false; 
+                    },
+                    getVideoSrc() {
+                        if (this.subStep === 'step1') return '/static/video/line-add.mov';
+                        if (this.subStep === 'step2') return '/static/video/groom_bride_ui_1.mov#t=10'; 
+                        if (this.subStep === 'step3') return '/static/video/groom_bride_ui_2.mov#t=20';
+                        if (this.subStep === 'step4') return '/static/video/line-add.mov#t=3';
+                        return '';
+                    },
+                    togglePlay() {
+                        let vid = this.$refs.currentVid;
+                        if (vid.paused) { vid.play(); this.isPlaying = true; } 
+                        else { vid.pause(); this.isPlaying = false; }
+                    },
+                    resetTab(tab) {
+                        this.activeTab = tab;
+                        this.subStep = 'step1';
+                        this.isPlaying = false;
+                    }
+                }"
+                x-effect="$nextTick(() => { if($refs.currentVid) { $refs.currentVid.load(); $refs.currentVid.pause(); isPlaying = false; } })">
+            
+            <div class="max-w-[1600px] mx-auto">
+                
+                <div class="flex justify-center space-x-6 mb-12">
+                    <button @click="resetTab('bride')" :class="activeTab === 'bride' ? 'bg-[#d4a373] text-white shadow-xl scale-110' : 'bg-gray-100 text-gray-400'" class="px-12 py-4 rounded-full font-black transition-all duration-300 text-lg uppercase tracking-widest">
+                        <i class="fas fa-ring mr-2"></i> For Bride & Groom
+                    </button>
+                    <button @click="resetTab('guest')" :class="activeTab === 'guest' ? 'bg-[#ff8a8a] text-white shadow-xl scale-110' : 'bg-gray-100 text-gray-400'" class="px-12 py-4 rounded-full font-black transition-all duration-300 text-lg uppercase tracking-widest">
+                        <i class="fas fa-envelope-open-text mr-2"></i> For Guests
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-4 items-start relative">
+                    
+                    <div class="lg:col-span-3 space-y-6">
+                        <div class="p-6 border-l-4" :class="activeTab === 'bride' ? 'border-[#d4a373]' : 'border-[#ff8a8a]'">
+                            <h3 class="text-4xl font-black italic uppercase tracking-tighter" :class="activeTab === 'bride' ? 'text-[#d4a373]' : 'text-[#ff8a8a]'" x-text="activeTab === 'bride' ? 'Bride & Groom Flow' : 'Guest Experience Flow'"></h3>
+                            <p class="text-gray-400 text-sm mt-2 font-bold uppercase italic">Auto-Play Sequence</p>
+                        </div>
                     </div>
-                    <div class="step-card bg-[#fffafa] p-8 rounded-[2rem] shadow-sm flex flex-col">
-                        <div class="w-10 h-10 bg-pink-100 text-[#ff8a8a] rounded-lg flex items-center justify-center mb-4 mx-auto font-bold">02</div>
-                        <h4 class="font-bold text-lg mb-2" data-ko="AI 영상 재생" data-en="AI Video Playback">AI 영상 재생</h4>
-                        <p class="text-xs text-gray-500 leading-relaxed mb-4 flex-grow" data-ko="D-ID 기반 AI 아바타가 실제 목소리로 예식 정보를 상세히 안내합니다. [cite: 37]" data-en="AI avatar based on D-ID provides wedding details with a realistic voice. [cite: 37]">D-ID 기반 AI 아바타가 실제 목소리로 예식 정보를 상세히 안내합니다.</p>
-                        <div class="aspect-video bg-gray-200 rounded-xl flex items-center justify-center text-gray-400"><i class="fas fa-play-circle text-2xl"></i></div>
+
+                    <div class="lg:col-span-6 flex flex-col items-center">
+                        <div class="relative w-full max-w-[550px] aspect-[9/16] bg-gray-900 rounded-[3.5rem] p-3 shadow-2xl border-[12px] border-gray-800 overflow-hidden group cursor-pointer" @click="togglePlay()">
+                            <div class="absolute top-6 left-1/2 -translate-x-1/2 w-16 h-1.5 bg-gray-700 rounded-full z-30"></div>
+                            
+                            <div class="relative w-full h-full bg-[#111] rounded-[2.5rem] overflow-hidden flex items-center justify-center">
+                                <video x-ref="currentVid" 
+                                    :src="getVideoSrc()" 
+                                    :key="subStep"
+                                    @ended="nextStep()"
+                                    class="w-full h-full transition-all duration-700" 
+                                    :class="subStep === 'step3' ? 'object-contain object-left scale-90' : 'object-cover object-center'"
+                                    playsinline>
+                                </video>
+                                
+                                <div x-show="!isPlaying" class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white z-20">
+                                    <div class="w-20 h-20 border-2 border-white rounded-full flex items-center justify-center bg-white/10 group-hover:scale-110 transition-transform shadow-2xl">
+                                        <i class="fas fa-play text-3xl ml-1"></i>
+                                    </div>
+                                    <p class="mt-6 font-black text-sm tracking-[0.2em] uppercase">Click to Watch</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="step-card bg-[#fffafa] p-8 rounded-[2rem] shadow-sm flex flex-col">
-                        <div class="w-10 h-10 bg-pink-100 text-[#ff8a8a] rounded-lg flex items-center justify-center mb-4 mx-auto font-bold">03</div>
-                        <h4 class="font-bold text-lg mb-2" data-ko="피드백" data-en="Feedback">피드백</h4>
-                        <p class="text-xs text-gray-500 leading-relaxed mb-4 flex-grow" data-ko="하객은 영상을 확인한 후 즉시 축하 메시지를 남기거나 RSVP를 완료합니다. [cite: 92, 270]" data-en="Guests leave messages or complete RSVP immediately after watching the video. [cite: 92, 270]">하객은 영상을 확인한 후 즉시 축하 메시지를 남기거나 RSVP를 완료합니다.</p>
-                        <div class="flex justify-center gap-2"><span class="px-2 py-1 bg-white border rounded text-[9px] font-bold">#RSVP</span></div>
+
+                    <div class="lg:col-span-3 flex flex-col gap-4">
+                        <div class="space-y-3">
+                            <button @click="subStep = 'step1'; isPlaying = false" 
+                                :class="subStep === 'step1' ? 'bg-white border-[#ff8a8a] text-[#ff8a8a] shadow-xl translate-x-[-10px]' : 'bg-transparent border-gray-100 text-gray-400 opacity-60'" 
+                                class="w-full flex items-center p-5 border-2 rounded-2xl font-black transition-all text-left">
+                                <span class="w-10 h-10 rounded-lg flex items-center justify-center mr-4 text-xs" :class="subStep === 'step1' ? 'bg-[#ff8a8a] text-white' : 'bg-gray-100'">01</span>
+                                <div class="flex-1">
+                                    <div class="text-xs uppercase opacity-50">Mobile</div>
+                                    <div class="text-sm">LINE 친구추가</div>
+                                </div>
+                            </button>
+
+                            <button @click="subStep = 'step2'; isPlaying = false" 
+                                :class="subStep === 'step2' ? 'bg-white border-[#ff8a8a] text-[#ff8a8a] shadow-xl translate-x-[-10px]' : 'bg-transparent border-gray-100 text-gray-400 opacity-60'" 
+                                class="w-full flex items-center p-5 border-2 rounded-2xl font-black transition-all text-left">
+                                <span class="w-10 h-10 rounded-lg flex items-center justify-center mr-4 text-xs" :class="subStep === 'step2' ? 'bg-[#ff8a8a] text-white' : 'bg-gray-100'">02</span>
+                                <div class="flex-1">
+                                    <div class="text-xs uppercase opacity-50">Mobile</div>
+                                    <div class="text-sm">LINE에서 신청하기</div>
+                                </div>
+                            </button>
+
+                            <button @click="subStep = 'step3'; isPlaying = false" 
+                                :class="subStep === 'step3' ? 'bg-white border-[#ff8a8a] text-[#ff8a8a] shadow-xl translate-x-[-10px]' : 'bg-transparent border-gray-100 text-gray-400 opacity-60'" 
+                                class="w-full flex items-center p-5 border-2 rounded-2xl font-bold transition-all text-left">
+                                <span class="w-10 h-10 rounded-lg flex items-center justify-center mr-4 text-xs" :class="subStep === 'step3' ? 'bg-[#ff8a8a] text-white' : 'bg-gray-100'">03</span>
+                                <div class="flex-1">
+                                    <div class="text-xs uppercase opacity-50 font-black text-blue-500">PC Display</div>
+                                    <div class="text-sm font-black">Form으로 등록하기</div>
+                                </div>
+                            </button>
+                            
+                            <template x-if="activeTab === 'guest'">
+                                <button @click="subStep = 'step4'; isPlaying = false" 
+                                    :class="subStep === 'step4' ? 'bg-white border-green-500 text-green-500 shadow-xl translate-x-[-10px]' : 'bg-transparent border-gray-100 text-gray-400 opacity-60'" 
+                                    class="w-full flex items-center p-5 border-2 rounded-2xl font-black transition-all text-left">
+                                    <span class="w-10 h-10 rounded-lg flex items-center justify-center mr-4 text-xs" :class="subStep === 'step4' ? 'bg-green-500 text-white' : 'bg-gray-100'">04</span>
+                                    <div class="flex-1">
+                                        <div class="text-xs uppercase opacity-50">Final Result</div>
+                                        <div class="text-sm">청첩장 받기</div>
+                                    </div>
+                                </button>
+                            </template>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
         <section id="architecture" class="bg-[#fff9f9] px-6 text-center">
             <div class="max-w-6xl mx-auto w-full space-y-8">
