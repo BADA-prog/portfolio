@@ -39,7 +39,7 @@
                     HELLO, I'm <br><span class="theme-accent">{{ profile.name }}</span>
                 </h1>
                 <div class="text-xl md:text-3xl mb-8 max-w-2xl leading-relaxed theme-text-sub">
-                    {{ profile.title }} | {{ profile.location }}
+                    {{ profile.title }} 
                 </div>
                 <div class="flex items-center gap-4 text-lg font-mono mb-10 theme-text-sub">
                     <div class="flex items-center gap-2">
@@ -47,11 +47,11 @@
                             <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
-                        {{ profile.city }}, {{ profile.location }}
+                         {{ profile.location }}
                     </div>
                 </div>
                 <div class="flex gap-4 mt-10 relative z-[100]">
-                    <a href="{{ profile.cv_url }}" target="_blank" class="shadow-btn px-10 py-4 rounded-full hover:scale-105 transition-all font-archivo flex items-center justify-center">Download CV</a>
+                    <a href="{{ profile.cv_url }}" target="_blank" class="btn-disabled shadow-btn px-10 py-4 rounded-full hover:scale-105 transition-all font-archivo flex items-center justify-center">Download CV</a>
                     <button class="px-10 py-4 rounded-full font-archivo btn-disabled" disabled>Contact ME</button>
                 </div>
                 <div class="flex items-center gap-5 mt-12 relative z-[100]">

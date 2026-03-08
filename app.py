@@ -71,9 +71,6 @@ def home():
 
 @app.route('/projects/<project_name>')
 def project_detail(project_name):
-    """
-    DB의 project_url 값을 받아 상세 페이지를 보여주거나 외부 링크로 이동합니다.
-    """
     if project_name.startswith('http'):
         return redirect(project_name)
     
