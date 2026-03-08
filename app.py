@@ -74,16 +74,12 @@ def project_detail(project_name):
     """
     DB의 project_url 값을 받아 상세 페이지를 보여주거나 외부 링크로 이동합니다.
     """
-    # 1. 만약 DB에 저장된 값이 외부 링크(http로 시작)라면 해당 사이트로 바로 이동
     if project_name.startswith('http'):
         return redirect(project_name)
     
-    # 2. 내부 파일명(예: wedding)일 경우 templates/projects/ 폴더 안의 html을 렌더링
     try:
-        # DB에는 'wedding'이라고 저장하고, 실제 파일은 'wedding.html'을 찾습니다.
         return render_template(f'projects/{project_name}.html')
     except Exception as e:
-        # 파일이 없거나 오류가 나면 메인 페이지로 돌아갑니다.
         print(f"Error loading project page: {e}")
         return redirect(url_for('home'))
     

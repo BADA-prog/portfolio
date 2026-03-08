@@ -9,69 +9,117 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
-        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
-        .snap-container {
-            height: 100vh;
-            overflow-y: auto;
-            scroll-snap-type: y mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-        header, section {
-            height: 100vh;
-            width: 100%;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        body { font-family: 'Noto Sans KR', sans-serif; background-color: #fdfbfb; color: #4a4a4a; }
-        .serif-title { font-family: 'Dancing Script', cursive; }
-        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 182, 193, 0.3); }
-        #sticky-nav { transform: translateY(-100%); transition: all 0.5s ease-in-out; }
-        #sticky-nav.visible { transform: translateY(0); }
-        .nav-link { position: relative; transition: color 0.3s; }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0; height: 2px;
-            bottom: -4px; left: 0;
-            background-color: #ff8a8a;
-            transition: width 0.3s;
-        }
-        .nav-link.active {
-    color: #ff8a8a !important; /* 핑크색으로 강조 */
-    font-weight: 700;
-}
+    html, body { 
+        height: 100%; 
+        margin: 0; 
+        padding: 0; 
+        overflow: hidden; 
+    }
 
-.nav-link.active::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: #ff8a8a;
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-}
-        .nav-link:hover::after { width: 100%; }
-        .snap-container::-webkit-scrollbar { width: 6px; }
-        .snap-container::-webkit-scrollbar-thumb { background-color: rgba(212, 163, 163, 0.5); border-radius: 10px; }
-.hero-new {
+    .snap-container {
+        height: 100vh;
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    header, section {
+        height: 100vh;
+        width: 100%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    body { 
+        font-family: 'Noto Sans KR', sans-serif; 
+        background-color: #fdfbfb; 
+        color: #4a4a4a; 
+    }
+
+    .serif-title { 
+        font-family: 'Dancing Script', cursive; 
+    }
+
+    .glass-card { 
+        background: rgba(255, 255, 255, 0.8); 
+        backdrop-filter: blur(10px); 
+        border: 1px solid rgba(255, 182, 193, 0.3); 
+    }
+
+    #sticky-nav { 
+        transform: translateY(-100%); 
+        transition: all 0.5s ease-in-out; 
+    }
+
+    #sticky-nav.visible { 
+        transform: translateY(0); 
+    }
+
+    .nav-link { 
+        position: relative; 
+        transition: color 0.3s; 
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0; 
+        height: 2px;
+        bottom: -4px; 
+        left: 0;
+        background-color: #ff8a8a;
+        transition: width 0.3s;
+    }
+
+    .nav-link.active {
+        color: #ff8a8a !important;
+        font-weight: 700;
+    }
+
+    .nav-link.active::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: #ff8a8a;
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+    }
+
+    .nav-link:hover::after { 
+        width: 100%; 
+    }
+
+    .snap-container::-webkit-scrollbar { 
+        width: 6px; 
+    }
+
+    .snap-container::-webkit-scrollbar-thumb { 
+        background-color: rgba(212, 163, 163, 0.5); 
+        border-radius: 10px; 
+    }
+
+    .hero-new {
         position: relative;
-        background-image: url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1000&auto=format&fit=crop'); /* 요청하신 이미지 */
+        background-image: url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1000&auto=format&fit=crop');
         background-size: cover;
         background-position: center;
         display: flex;
         justify-content: center;
         align-items: center;
-        
     }
 
     .hero-overlay {
         position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.5); /* 대비를 위한 어두운 오버레이 */
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
         z-index: 1;
     }
 
@@ -104,7 +152,6 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-/* [핵심] 봉투와 카드를 감싸는 컨테이너 */
     .envelope-wrapper {
         position: relative;
         width: 100%;
@@ -114,7 +161,6 @@
         perspective: 1000px;
     }
 
-    /* 1. 봉투 뒷면 (가장 뒤) */
     .envelope-back {
         position: absolute;
         bottom: 0;
@@ -126,7 +172,6 @@
         z-index: 1;
     }
 
-    /* 2. 봉투 앞면 (V자 컷팅 - 카드보다 아래 레이어) */
     .envelope-front {
         position: absolute;
         bottom: 0;
@@ -135,112 +180,101 @@
         height: 250px;
         background: #5dade2;
         clip-path: polygon(0 0, 0% 100%, 100% 100%, 100% 0, 50% 45%);
-        z-index: 2; /* 카드(z-index 3)보다 낮음 */
+        z-index: 2;
         border-radius: 0 0 15px 15px;
     }
 
-    /* 3. [핵심] 청첩장 카드 (봉투를 뚫고 나와 화면 중앙으로 확대) */
     .invitation-card-pop {
         position: absolute;
         bottom: 20px;
-        left: 50%; /* 중앙 정렬 시작점 */
+        left: 50%;
         width: 90%;
         max-width: 450px;
         background: #fdfcf8;
         padding: 3rem 2rem;
         box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        z-index: 3; /* 봉투 앞면(z-index 2)보다 높음 -> 위로 올라옴 */
+        z-index: 3;
         opacity: 0;
-        
-        /* 초기 상태: 중앙 정렬 유지하며 봉투 안에 작게 숨음 */
         transform: translate(-50%, 20px) scale(0.7); 
         transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
         border-radius: 10px;
         border: 1px solid #eee;
     }
 
-    /* [활성화 상태] 카드가 위로 솟구치며 정중앙에 고정되고 커짐 */
     #overview.is-visible .invitation-card-pop {
-    opacity: 1;
-    transform: translate(-50%, -240px) scale(1.3); 
-    box-shadow: 0 40px 100px rgba(0,0,0,0.25);
-}
-    /* 마우스 효과 입자 스타일 */
-    #cursor-effect-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* 클릭 방해 금지 */
-    z-index: 99999; /* 모든 요소보다 위에 배치 */
-}
-.mouse-particle {
-    position: absolute;
-    pointer-events: none;
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    z-index: 9999;
-    border-radius: 50%;
-    /* 수채화 느낌을 위해 약간의 블러 처리 */
-    filter: blur(0.5px);
-    animation: particleFadeOut 1.2s ease-out forwards;
-}
-
-@keyframes particleFadeOut {
-    0% { 
-        opacity: 1; 
-        transform: translate(0, 0) scale(1) rotate(0deg); 
-    }
-    /* 중간 지점에서 살짝 커졌다가 사라지게 하여 '펑' 하는 느낌 강조 */
-    20% {
         opacity: 1;
-        transform: translate(calc(var(--mx) * 0.2), calc(var(--my) * 0.2)) scale(1.2) rotate(90deg);
+        transform: translate(-50%, -240px) scale(1.3); 
+        box-shadow: 0 40px 100px rgba(0,0,0,0.25);
     }
-    100% { 
-        opacity: 0; 
-        transform: translate(var(--mx), var(--my)) scale(0.2) rotate(720deg); 
+
+    #cursor-effect-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 99999;
     }
-}
-#magic-cursor {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    background: radial-gradient(circle, #ffb6c1 0%, rgba(255, 182, 193, 0) 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 1000000;
-    box-shadow: 0 0 15px #ff8a8a, 0 0 30px #ffb6c1;
-    transition: transform 0.1s ease-out;
-    transform: translate(-50%, -50%);
-}
 
-/* 손전등 빛 번짐 효과 */
-#cursor-glow {
-    position: fixed;
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, rgba(255, 138, 138, 0.15) 0%, rgba(255, 182, 193, 0) 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 999999;
-    transform: translate(-50%, -50%);
-}
+    @keyframes particleFadeOut {
+        0% { 
+            opacity: 1; 
+            transform: translate(0, 0) scale(1) rotate(0deg); 
+        }
+        20% {
+            opacity: 1;
+            transform: translate(calc(var(--mx) * 0.2), calc(var(--my) * 0.2)) scale(1.2) rotate(90deg);
+        }
+        100% { 
+            opacity: 0; 
+            transform: translate(var(--mx), var(--my)) scale(0.2) rotate(720deg); 
+        }
+    }
 
-/* 터지는 꽃잎/입자 스타일 */
-.blossom-particle {
-    position: fixed;
-    pointer-events: none;
-    z-index: 999998;
-    background: #ffb6c1;
-    /* 벚꽃잎 모양 */
-    clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
-    animation: blossomFade 1.5s ease-out forwards;
-}
+    #magic-cursor {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        background: radial-gradient(circle, #ffb6c1 0%, rgba(255, 182, 193, 0) 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1000000;
+        box-shadow: 0 0 15px #ff8a8a, 0 0 30px #ffb6c1;
+        transition: transform 0.1s ease-out;
+        transform: translate(-50%, -50%);
+    }
 
-@keyframes blossomFade {
-    0% { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
-    100% { opacity: 0; transform: translate(var(--mx), var(--my)) rotate(var(--rt)) scale(0); }
-}
+    #cursor-glow {
+        position: fixed;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(255, 138, 138, 0.15) 0%, rgba(255, 182, 193, 0) 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 999999;
+        transform: translate(-50%, -50%);
+    }
+
+    .blossom-particle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 999998;
+        background: #ffb6c1;
+        clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+        animation: blossomFade 1.5s ease-out forwards;
+    }
+
+    @keyframes blossomFade {
+        0% { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
+        100% { opacity: 0; transform: translate(var(--mx), var(--my)) rotate(var(--rt)) scale(0); }
+    }
+    .custom-footer {
+    height: auto;          /* 내용 높이에 맞춤 */
+    min-height: 300px;     /* 최소 높이 지정 (원하는 만큼 조절) */
+    scroll-snap-align: end; /* 중요: 섹션 끝에 딱 붙도록 설정 */
+    padding: 60px 24px;
+    }
     </style>
 </head>
 <body onload="document.body.classList.add('is-visible')">
@@ -256,8 +290,7 @@
             <a href="#problem" class="nav-link hover:text-[#ff8a8a]" data-section="problem">Challenge</a>
             <a href="#user-flow" class="nav-link hover:text-[#ff8a8a]" data-section="user-flow">User Flow</a>
             <a href="#architecture" class="nav-link hover:text-[#ff8a8a]" data-section="architecture">Architecture</a>
-            <a href="#management" class="nav-link hover:text-[#ff8a8a]" data-section="management">Management</a>
-            
+            <a href="#management" class="nav-link hover:text-[#ff8a8a]" data-section="management">Management</a>       
             <div class="flex border border-gray-200 rounded-full px-2 py-1 ml-2 bg-white/50">
                 <button onclick="changeLang('ko')" class="px-2 hover:text-[#ff8a8a] text-[10px] font-bold border-r border-gray-200">KO</button>
                 <button onclick="changeLang('en')" class="px-2 hover:text-[#ff8a8a] text-[10px] font-bold">EN</button>
@@ -266,8 +299,7 @@
         </div>
     </nav>
 
-    <div class="snap-container" id="main-scroll">
-        
+    <div class="snap-container" id="main-scroll">     
         <header id="hero" class="hero-new">
             <div class="hero-overlay"></div>
             <div class="hero-container">
@@ -283,26 +315,20 @@
         </header>
 
         <section id="overview" class="relative flex items-center justify-center px-6 overflow-hidden min-h-screen bg-[#f8f9fa]">
-            <div class="absolute inset-0 z-0 " style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80'); background-size: cover; background-position: center;"></div>
-            
+            <div class="absolute inset-0 z-0 " style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80'); background-size: cover; background-position: center;"></div>    
             <div class="max-w-4xl mx-auto w-full flex flex-col items-center">
                 <div class="envelope-wrapper">
-                    <div class="envelope-back"></div>
-                    
+                    <div class="envelope-back"></div>   
                     <div class="invitation-card-pop text-center">
                         <div class="space-y-4">
                             <h3 class="text-gray-400 text-left text-xs font-bold" style="font-family: 'Cinzel', serif;" data-ko="안녕, 하객 여러분!" data-en="Hello Guests,">Hello Guests,</h3>
                             <p class="text-[#ff8a8a] text-[10px] tracking-[0.4em] uppercase font-bold">AI INNOVATION</p>
-                            <h2 class="text-2xl md:text-3xl font-bold text-[#4a90bc] serif-title">Smart & Personal Invitation</h2>
-                            
+                            <h2 class="text-2xl md:text-3xl font-bold text-[#4a90bc] serif-title">Smart & Personal Invitation</h2>      
                             <div class="w-12 h-[1px] bg-[#4a90bc]/30 mx-auto"></div>
-
                             <p class="text-gray-600 text-xs md:text-sm leading-relaxed" style="text-align: left;"
                             data-ko="우리 팀은 기존의 획일적인 제작형 청첩장에서 벗어나, 하객의 데이터와 추억을 기반으로 한 초개인화된 디지털 초대 경험을 설계했습니다. GPT-4의 지능과 D-ID의 생동감을 결합하여, 모든 하객에게 이름과 추억이 담긴 단 하나의 맞춤형 영상을 자동으로 생성하고 전달합니다." 
-                            data-en="Designed hyper-personalized digital experiences based on guest data and memories, moving away from uniform template invitations.">
-                            
+                            data-en="Designed hyper-personalized digital experiences based on guest data and memories, moving away from uniform template invitations."> 
                             </p>
-
                             <div class="pt-4 border-t border-gray-100 flex justify-center gap-8">
                                 <div class="text-center">
                                     <span class="text-xl block">💍</span>
@@ -312,20 +338,17 @@
                                     <span class="text-xl block">🤖</span>
                                     <span class="text-[9px] font-bold text-gray-400 uppercase">Automation</span>
                                 </div>
-                            </div>
-                            
+                            </div>  
                             <p class="text-[#4a90bc] font-bold text-sm pt-3 italic">Experience the Future of Wedding.</p>
                         </div>
                     </div>
-
                     <div class="envelope-front"></div>
                 </div>
-                
                 <p class="mt-20 text-gray-400 text-[10px] tracking-widest animate-pulse">SCROLL TO DOWN</p>
             </div>
         </section>
 
-        <section id="key" class="py-24 px-6 bg-[#fffcfc]">
+        <section id="key" class="py-24 px-6 bg-gradient-to-br from-white via-[#fff5f5] to-[#ffebeb] relative overflow-hidden">
             <div class="max-w-6xl mx-auto"> 
                 <div class="text-center mb-16 space-y-4">
                     <h2 class="md:text-5xl font-extrabold text-gray-800 tracking-tight italic">Key <span class="text-[#ff8a8a]">Features</span></h2>
@@ -350,9 +373,8 @@
                         </div>
                         <h3 class="text-2xl font-bold mb-4 text-gray-800" data-ko="페이스 애니메이션" data-en="Face Animation">페이스 애니메이션</h3>
                         <p class="text-gray-500 text-base leading-relaxed" 
-                        data-ko="D-ID API를 통해 신랑신부의 사진이 실제로 말하는 듯한 고화질 AI 애니메이션 영상을 30초 내에 렌더링합니다." 
-                        data-en="High-quality AI animation videos, where the couple's photos appear to speak, are rendered within 30 seconds via the D-ID API.">
-                            D-ID API를 통해 신랑신부의 사진이 실제로 말하는 듯한 고화질 AI 애니메이션 영상을 30초 내에 렌더링합니다.
+                        data-ko="D-ID API 프로토타입 구현을 통해 신랑신부의 사진에 생동감을 더하는 AI 애니메이션을 생성하며, 초개인화 초대장의 기술적 타당성을 검증했습니다." 
+                        data-en="Verified the technical feasibility of hyper-personalized invitations by generating AI-animated wedding photos via D-ID API prototypes.">
                         </p>
                     </div>
 
@@ -371,7 +393,7 @@
             </div>
         </section>
 
-        <section id="problem" class="bg-[#fffcfc] py-24 px-6 font-sans">
+        <section id="problem" class="py-24 px-6 font-sans bg-gradient-to-b from-[#fff5f5] to-slate-50">
             <div class="max-w-6xl mx-auto space-y-20"> 
                 <div class="text-center space-y-4"> 
                     <h2 class="md:text-5xl font-extrabold text-gray-800 tracking-tight italic">
@@ -380,7 +402,7 @@
                         <span class="text-[#d4a373]" data-ko="해결" data-en="Resolution">Resolution</span>
                     </h2>
                     <div class="w-16 h-1 bg-[#ff8a8a] mx-auto rounded-full"></div>
-                    <p class="text-gray-500 font-base" 
+                    <p class="text-gray-500 font-medium" 
                     data-ko="프로젝트 진행 중 발생한 기술적 문제와 이를 해결한 전략적 의사결정" 
                     data-en="Technical hurdles encountered during the project and the strategic decisions made to resolve them.">
                     </p>
@@ -401,14 +423,14 @@
                         <div class="space-y-8 relative flex-grow">
                             <div>
                                 <span class="inline-block px-3 py-1 bg-[#fff0f0] text-[#ff8a8a] text-xs font-black uppercase tracking-widest rounded-full mb-3">Problem</span>
-                                <p class="text-gray-600 text-xl leading-relaxed"
+                                <p class="text-gray-600 text-lg leading-relaxed"
                                 data-ko="n8n과 LINE Messaging API 연동 과정에서 웹훅 보안 설정 문제로 이벤트 데이터 수신이 지연되었습니다. 프로젝트 마감이 임박한 상황에서 이 문제는 전체 시연 일정에 영향을 줄 수 있는 중요한 기술적 병목이었습니다."
                                 data-en="While integrating n8n with the LINE Messaging API, webhook security configuration issues delayed event data reception, creating a critical bottleneck close to the project deadline.">
                                 </p>
                             </div>
                             <div class="pt-6 border-t border-gray-50 mt-auto">
                                 <span class="inline-block px-3 py-1 bg-green-50 text-green-500 text-xs font-black uppercase tracking-widest rounded-full mb-3">Resolution</span>
-                                <p class="text-gray-600 leading-relaxed"
+                                <p class="text-gray-600 text-lg leading-relaxed"
                                 data-ko="프로젝트 일정 준수를 위해 Gmail API를 활용한 대체 전송 채널을 먼저 구현하여 전체 워크플로우를 기한 내 완성했습니다. 이후 웹훅 문제의 원인을 분석하여 발표 직전 LINE Messaging API 연동까지 성공적으로 완료했습니다."
                                 data-en="To ensure the deadline was met, I temporarily switched the message delivery channel to Gmail API and completed the core workflow. After identifying the webhook issue, the LINE Messaging API integration was successfully completed before the final presentation.">
                                 </p>
@@ -429,14 +451,14 @@
                         <div class="space-y-8 relative flex-grow">
                             <div>
                                 <span class="inline-block px-3 py-1 bg-[#fff0f0] text-[#ff8a8a] text-xs font-black uppercase tracking-widest rounded-full mb-3">Problem</span>
-                                <p class="text-gray-600 leading-relaxed"
+                                <p class="text-gray-600 text-lg leading-relaxed"
                                 data-ko="팀 프로젝트 진행 중 시간 효율을 위해 한 명의 결과물을 대표 결과로 제출하자는 의견이 있었습니다. 그러나 이는 협업의 가치와 프로젝트 목표인 초개인화 경험 구현에 한계가 있다고 판단했습니다."
                                 data-en="During the team project, a proposal suggested submitting a single member’s prototype for efficiency. However, this approach limited collaboration and did not support our goal of hyper-personalized invitations.">
                                 </p>
                             </div>
                             <div class="pt-6 border-t border-gray-50 mt-auto">
                                 <span class="inline-block px-3 py-1 bg-green-50 text-green-500 text-xs font-black uppercase tracking-widest rounded-full mb-3">Resolution</span>
-                                <p class="text-gray-600 leading-relaxed"
+                                <p class="text-gray-600 text-lg leading-relaxed"
                                 data-ko="6명의 팀원이 GPT 프롬프트 설계, 영상 API 연동, 데이터 관리 등 워크플로우 단계를 분담하도록 구조를 재구성했습니다. 그 결과 하객마다 서로 다른 초대장이 생성되는 자동화 시스템을 구축할 수 있었습니다."
                                 data-en="The workflow was reorganized so each of the six members handled different components such as GPT prompt design, video API integration, and data management, enabling a fully automated hyper-personalized invitation system.">
                                 </p>
@@ -448,7 +470,7 @@
             </div>
         </section>
 
-        <section id="user-flow" class="bg-[#fffcfc] py-24 px-6 font-sans" 
+        <section id="user-flow" class="relative overflow-hidden py-24 px-6 font-sans bg-[#fdfbfb] border-t border-gray-100 shadow-[inset_0_20px_50px_rgba(0,0,0,0.02)]"
                 x-data="{ 
                     activeTab: 'bride', 
                     subStep: 'step1',
@@ -465,14 +487,18 @@
                             if(this.subStep==='step1') return '/static/video/wedding/couple-add-line.mp4';
                             if(this.subStep==='step2') return '/static/video/wedding/couple-reservation.mp4';
                         } else {
-                            // 하객용 영상 2개 매칭
-                            if(this.subStep==='step1') return '/static/video/wedding/guest-reservation.mp4'; // 라인 신청 (Sheet 연결)
-                            if(this.subStep==='step2') return '/static/video/wedding/guest-invite.mp4';      // AI 청첩장 받기
+                            if(this.subStep==='step1') return '/static/video/wedding/guest-reservation.mp4'; 
+                            if(this.subStep==='step2') return '/static/video/wedding/guest-invite.mp4';      
                         }
                         return '';
                     }
                 }"
                 x-on:lang-changed.window="lang = $event.detail">
+                
+            <div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-[#ff8a8a] rounded-full mix-blend-multiply filter blur-[128px] opacity-20 pointer-events-none"></div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[40rem] h-[40rem] bg-[#d4a373] rounded-full mix-blend-multiply filter blur-[128px] opacity-20 pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-[1400px] mx-auto">
 
             <div class="max-w-[1400px] mx-auto">
                 <div class="flex justify-center space-x-6 mb-12">
@@ -502,8 +528,8 @@
                                     <span x-text="index+1"></span>
                                 </span>
                                 <div class="flex-1">
-                                    <div class="text-[10px] uppercase opacity-50" x-text="activeTab==='bride' ? ['Mobile','System'][index] : ['Channel','Result'][index]"></div>
-                                    <div class="text-sm font-bold" x-text="activeTab==='bride' ? ['Add Bot & Start(Line Bot)','Enter Wedding Info'][index] : ['Register Guest Info','Get Guest AI Invitation'][index]"></div>
+                                    <div class="text-sm uppercase opacity-50" x-text="activeTab==='bride' ? ['Mobile','System'][index] : ['Channel','Result'][index]"></div>
+                                    <div class="text-lg font-bold" x-text="activeTab==='bride' ? ['Add Bot & Start','Enter Wedding Info'][index] : ['Register Guest Info','Get Guest AI Invitation'][index]"></div>
                                 </div>
                             </button>
                         </template>
@@ -542,7 +568,7 @@
                             <div class="space-y-6">
                                 <div class="flex items-center gap-2">
                                     <span class="w-2 h-2 rounded-full animate-pulse" :class="activeTab==='bride' ? 'bg-[#d4a373]' : 'bg-[#ff8a8a]'"></span>
-                                    <h4 class="text-[10px] font-black uppercase tracking-widest text-gray-400">Technical Insight</h4>
+                                    <h4 class="text-sm font-black uppercase tracking-widest text-gray-400">Technical Insight</h4>
                                 </div>
 
                                 <div class="space-y-8">
@@ -560,7 +586,7 @@
                                                 x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
                                                 </p>
 
-                                                <p class="text-gray-500 text-xs leading-relaxed"
+                                                <p class="text-gray-500 text-sm leading-relaxed"
                                                 data-ko="n8n의 Webhook 노드를 활용해 LINE과 Telegram의 이벤트를 단일 워크플로우로 통합했습니다. 사용자가 봇을 추가하거나 메시지를 보내는 즉시 실시간으로 감지하여 자동화 파이프라인을 트리거합니다."
                                                 data-en="Integrated LINE and Telegram Bot APIs using n8n Webhook nodes to trigger the automation pipeline in real-time as soon as an event is detected."
                                                 x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
@@ -579,7 +605,7 @@
                                                 x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
                                                 </p>
 
-                                                <p class="text-gray-500 text-xs leading-relaxed"
+                                                <p class="text-gray-500 text-sm leading-relaxed"
                                                 data-ko="메신저 내에서 호출된 Google Form을 통해 신랑신부의 마스터 데이터를 수집합니다. 입력된 정보는 즉시 구글 스프레드시트 DB에 저장되어, 향후 하객 데이터와 매칭될 준비를 마칩니다."
                                                 data-en="Synchronized wedding master data collected via Google Forms directly into the Spreadsheet database for seamless guest matching."
                                                 x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
@@ -602,7 +628,7 @@
                                                 x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
                                                 </p>
 
-                                                <p class="text-gray-500 text-xs leading-relaxed"
+                                                <p class="text-gray-500 text-sm leading-relaxed"
                                                 data-ko="초대받은 하객이 정보(예: 이름 'Lemon')를 등록하면, 시스템은 고유 식별자인 coupleID를 외래 키(FK)로 사용하여 특정 신랑신부의 데이터와 1:N으로 정교하게 매칭합니다. 이를 통해 수많은 데이터 사이에서도 하객별로 정확한 커플 정보를 찾아냅니다."
                                                 data-en="Registered guest info(e.g., 'Lemon') is mapped 1:N with wedding master data using coupleID as a unique key to ensure data integrity across multiple users."
                                                 x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
@@ -624,7 +650,7 @@
                                                 x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
                                                 </p>
 
-                                                <p class="text-gray-500 text-xs leading-relaxed"
+                                                <p class="text-gray-500 text-sm leading-relaxed"
                                                 data-ko="등록된 정보를 바탕으로 GPT-4o가 하객과의 관계를 분석해 맞춤 스크립트를 생성합니다. 완성된 AI 영상은 하객의 선호에 따라 LINE, Telegram, Gmail API를 통해 자동으로 전송되는 엔드 투 엔드(End-to-End) 시스템을 구축했습니다."
                                                 data-en="Built an end-to-end pipeline that generates custom scripts via GPT-4o and delivers AI videos through LINE, Telegram, or Gmail APIs."
                                                 x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
@@ -632,26 +658,26 @@
 
                                                 <div class="space-y-2 pt-2 border-t border-gray-50">
                                                     <div class="p-3 bg-white rounded-xl border-2 border-pink-50 shadow-sm">
-                                                        <p class="text-[9px] font-bold text-[#ff8a8a] flex items-center gap-1">
+                                                        <p class="text-xs font-bold text-[#ff8a8a] flex items-center gap-1">
                                                             <i class="fas fa-home"></i> To. Lemon (Family)
                                                         </p>
-                                                        <p class="text-[10px] text-gray-800 italic mt-1 leading-relaxed">
+                                                        <p class="text-sm text-gray-800 italic mt-1 leading-relaxed">
                                                             "Hey Lemon! I'm so excited to invite you to our wedding on June 26th, 2025, in Taoyuan. We're planning a beautiful Western-style celebration, and it wouldn't feel complete without you there, especially after all those family gatherings filled with laughter and love. I cherish those memories, and I can't wait to create more with you on our special day!"
                                                         </p>
                                                     </div>
                                                     <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
-                                                        <p class="text-[9px] font-bold text-blue-500 uppercase flex items-center gap-1">
+                                                        <p class="text-xs font-bold text-blue-500 uppercase flex items-center gap-1">
                                                             <i class="fas fa-user-friends"></i> To. May (Friend)
                                                         </p>
-                                                        <p class="text-[10px] text-gray-500 italic mt-1 leading-relaxed">
+                                                        <p class="text-sm text-gray-500 italic mt-1 leading-relaxed">
                                                             "Hey May! I still cherish those hilarious moments we shared in high school. It would mean the world to have you there as we start this new chapter!"
                                                         </p>
                                                     </div>
                                                     <div class="p-3 bg-white rounded-xl border-2 border-pink-50 shadow-sm">
-                                                        <p class="text-[9px] font-bold text-[#ff8a8a] flex items-center gap-1">
+                                                        <p class="text-xs font-bold text-[#ff8a8a] flex items-center gap-1">
                                                             <i class="fas fa-graduation-cap"></i> To. Uncle Chen (Mentor)
                                                         </p>
-                                                        <p class="text-[10px] text-gray-800 italic mt-1 leading-relaxed">
+                                                        <p class="text-sm text-gray-800 italic mt-1 leading-relaxed">
                                                             "Hi Uncle Chen! I can't help but think of all the wisdom and support you shared with Jack while he was growing up. It wouldn't feel complete without you."
                                                         </p>
                                                     </div>
@@ -662,14 +688,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
-
-                    
+                    </div>       
             </div>
         </section>
-
 
         <section id="architecture" class="bg-[#fff9f9] py-24 px-6" x-data="{ playing: true }">
             <div class="max-w-6xl mx-auto w-full space-y-12">
@@ -713,7 +734,7 @@
                     </div>
 
                     <div class="absolute bottom-[40%] right-10 z-30">
-                        <a href="YOUR_CANVA_LINK_HERE" target="_blank" 
+                        <a href="https://www.canva.com/design/DAHDWMGue2M/y3WQOdsei6QhsMFILMMtOA/edit?utm_content=DAHDWMGue2M&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" 
                         class="bg-gray-800 text-white px-5 py-2.5 rounded-xl font-black text-[10px] shadow-2xl flex items-center gap-2 hover:bg-[#ff8a8a] transition-all duration-300 group/btn"
                         @click.stop>
                             <span data-ko="자세히 보기" data-en="View Details" 
@@ -730,44 +751,49 @@
                         <div class="hidden md:block absolute top-10 left-0 w-full h-0.5 border-t-2 border-dashed border-gray-200 -z-10"></div>
 
                         <div class="group text-center">
-                            <div class="w-20 h-20 bg-white shadow-xl text-[#ff8a8a] rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 border-2 border-pink-50">
-                                <i class="fas fa-bolt text-2xl"></i>
+                            <div class="relative w-20 h-20 bg-white shadow-xl text-[#ff8a8a] rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-105 group-hover:bg-[#ff8a8a] group-hover:text-white transition-all duration-300 border-2 border-pink-50">  
+                                <i class="fas fa-plug text-2xl absolute transition-opacity duration-300 opacity-100 group-hover:opacity-0"></i>
+                                <span class="absolute font-bold text-sm tracking-tight transition-opacity duration-300 opacity-0 group-hover:opacity-100">Input</span>      
                             </div>
-                            <h4 class="font-black text-gray-800 text-[10px] mb-2 uppercase tracking-widest">01. Webhook (Input)</h4>
-                            <p class="text-[11px] text-gray-400 leading-relaxed px-4"
+                            <h4 class="font-black text-gray-800 text-base mb-2 uppercase tracking-widest">01. Webhook</h4>
+                            <p class="text-left text-sm text-gray-400 leading-relaxed px-4"
                             data-ko="LINE/Google Form 데이터 수집 및 워크플로우 트리거"
                             data-en="Data collection and workflow trigger via LINE/Google Form"
                             x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')"></p>
                         </div>
 
                         <div class="group text-center">
-                            <div class="w-20 h-20 bg-white shadow-xl text-[#ff8a8a] rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 border-2 border-pink-50">
-                                <i class="fas fa-brain text-2xl"></i>
+                            <div class="relative w-20 h-20 bg-white shadow-xl text-[#ff8a8a] rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-105 group-hover:bg-[#ff8a8a] group-hover:text-white transition-all duration-300 border-2 border-pink-50">  
+                                <i class="fas fa-brain text-2xl absolute transition-opacity duration-300 opacity-100 group-hover:opacity-0"></i>
+                                <span class="absolute font-bold text-sm tracking-tight transition-opacity duration-300 opacity-0 group-hover:opacity-100">Intelligence</span>      
                             </div>
-                            <h4 class="font-black text-gray-800 text-[10px] mb-2 uppercase tracking-widest">02. GPT-4o (Intelligence)</h4>
-                            <p class="text-[11px] text-gray-400 leading-relaxed px-4"
+                            <h4 class="font-black text-gray-800 text-base mb-2 uppercase tracking-widest">02. GPT-4o</h4>
+                            <p class="text-left text-sm text-gray-400 leading-relaxed px-4"
                             data-ko="대규모 언어 모델(LLM)을 활용한 관계 데이터 기반 맞춤형 스크립트 생성"
                             data-en="Generating personalized scripts based on relationship data using LLM (GPT-4o)"
                             x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')"></p>
                         </div>
 
                         <div class="group text-center">
-                            <div class="w-20 h-20 bg-white shadow-xl text-[#ff8a8a] rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 border-2 border-pink-50">
-                                <i class="fas fa-video text-2xl"></i>
+                            <div class="relative w-20 h-20 bg-white shadow-xl text-[#ff8a8a] rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-105 group-hover:bg-[#ff8a8a] group-hover:text-white transition-all duration-300 border-2 border-pink-50">  
+                                <i class="fas fa-video text-2xl absolute transition-opacity duration-300 opacity-100 group-hover:opacity-0"></i>
+                                <span class="absolute font-bold text-sm tracking-tight transition-opacity duration-300 opacity-0 group-hover:opacity-100">Creation</span>      
                             </div>
-                            <h4 class="font-black text-gray-800 text-[10px] mb-2 uppercase tracking-widest">03. D-ID API (Creation)</h4>
-                            <p class="text-[11px] text-gray-400 leading-relaxed px-4"
+                            <h4 class="font-black text-gray-800 text-base mb-2 uppercase tracking-widest">03. D-ID API</h4>
+                            <p class="text-left text-sm text-gray-400 leading-relaxed px-4"
                             data-ko="AI 페이셜 애니메이션 기술을 적용한 1:1 개인화 초대 영상 렌더링"
                             data-en="1:1 personalized video rendering using AI facial animation technology."
                             x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')"></p>
                         </div>
 
                         <div class="group text-center">
-                            <div class="w-20 h-20 bg-white shadow-xl text-[#ff8a8a] rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 border-2 border-pink-50">
-                                <i class="fas fa-paper-plane text-2xl"></i>
+                            <div class="relative w-20 h-20 bg-white shadow-xl text-[#ff8a8a] rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-105 group-hover:bg-[#ff8a8a] group-hover:text-white transition-all duration-300 border-2 border-pink-50">  
+                                <i class="fas fa-paper-plane text-2xl absolute transition-opacity duration-300 opacity-100 group-hover:opacity-0"></i>
+                                <span class="absolute font-bold text-sm tracking-tight transition-opacity duration-300 opacity-0 group-hover:opacity-100">OUTPUT</span>      
                             </div>
-                            <h4 class="font-black text-gray-800 text-[10px] mb-2 uppercase tracking-widest">04. Delivery (Output)</h4>
-                            <p class="text-[11px] text-gray-400 leading-relaxed px-4"
+
+                            <h4 class="font-black text-gray-800 text-base mb-2 uppercase tracking-widest">04. Delivery</h4>
+                            <p class="text-left text-sm text-gray-400 leading-relaxed px-4"
                             data-ko="최종 생성된 영상 링크를 Telegram , Gmail 또는 LINE으로 자동 발송"
                             data-en="Automated delivery of final video links via Telegram, Gmail, or LINE."
                             x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')"></p>
@@ -777,25 +803,18 @@
             </div>
         </section>
 
-
         <section id="management" class="bg-white py-24 px-6">
             <div class="max-w-6xl mx-auto space-y-20">
-
-                <!-- Metrics -->
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
-
                     <div class="space-y-6">
                         <h2 class="md:text-5xl font-extrabold text-gray-800 tracking-tight italic">
                             Project <span class="text-[#ff8a8a]">Overview</span>
                         </h2>
-
-                        <p class="text-gray-500 leading-relaxed"
+                        <p class="text-base text-gray-500 leading-relaxed"
                         data-ko="본 프로젝트는 n8n 기반 자동화 워크플로우를 통해 데이터 수집, AI 영상 생성, 멀티 채널 발송까지 이어지는 end-to-end 파이프라인을 구현했습니다. 프로토타입 단계에서는 D-ID 무료 API 환경에서 테스트되었으며, 실제 서비스 환경에서는 더 빠른 영상 생성과 대량 처리가 가능한 확장 가능한 구조로 설계되었습니다."
                         data-en="This project implements an end-to-end pipeline covering data collection, AI video generation, and multi-channel delivery via n8n-based automation workflows. The prototype was tested using the D-ID free API, and the system is designed with a scalable architecture for faster video generation and high-volume processing in a production environment.">
                         </p>
-
                         <div class="grid grid-cols-2 gap-6 pt-4">
-
                             <div class="p-6 bg-[#fffcfc] rounded-3xl border border-pink-50 text-center space-y-3 shadow-sm">
                                 <div class="relative w-20 h-20 mx-auto">
                                     <svg class="w-full h-full" viewBox="0 0 36 36">
@@ -820,7 +839,7 @@
                                     </div>
                                 </div>
 
-                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">
                                     Workflow Automation
                                 </p>
                             </div>
@@ -850,7 +869,7 @@
                                     </div>
                                 </div>
 
-                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">
                                     API Integrations
                                 </p>
                             </div>
@@ -861,16 +880,14 @@
 
                     <div class="relative">
                         <div class="bg-gray-100 rounded-[3rem] aspect-video overflow-hidden border-8 border-white shadow-2xl">
-                            <img src="../../calendar.png"
-                                alt="Project Management"
-                                class="w-full h-full object-cover">
+                            <img src="../../static/calendar.png" alt="Project Management" class="w-full h-full object-cover">
                         </div>
 
                         <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-xl max-w-[200px] border border-gray-50">
-                            <p class="text-[10px] text-gray-400 font-bold uppercase mb-1">
+                            <p class="text-xs text-gray-400 font-bold uppercase mb-1">
                                 Collaborative Tool
                             </p>
-                            <p class="text-xs text-gray-700 font-medium leading-snug"
+                            <p class="text-sm text-gray-700 font-medium leading-snug"
                             data-ko="Google Calendar & Notion 기반 일정 관리"
                             data-en="Schedule management via Google Calendar & Notion">
                             </p>
@@ -883,22 +900,20 @@
 
                 <!-- Timeline -->
                 <div class="space-y-10">
-
                     <h3 class="text-3xl font-black text-gray-800">
                         Project <span class="text-[#ff8a8a]">Timeline</span>
                     </h3>
-
                     <div class="relative space-y-4">
-
                         <div class="flex items-center gap-4">
-                            <div class="w-24 text-right text-[10px] font-black text-gray-400 uppercase tracking-tighter">
+                            <div class="w-24 text-right text-xs font-black text-gray-400 uppercase tracking-tighter">
                                 Week 1
                             </div>
-
                             <div class="flex-1 h-12 bg-[#fff9f9] rounded-2xl border border-pink-50 relative overflow-hidden group">
                                 <div class="absolute inset-y-0 left-0 w-[20%] bg-[#ff8a8a] flex items-center px-4 transition-all group-hover:w-[25%]">
-                                    <span class="text-white text-[10px] font-bold whitespace-nowrap">
-                                        Planning & UI Design
+                                    <span class="text-white text-xs font-bold whitespace-nowrap"
+                                        data-ko="초기 설정 및 테스트"
+                                        data-en="Initial Setup & Testing"
+                                        x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
                                     </span>
                                 </div>
                             </div>
@@ -906,14 +921,16 @@
 
 
                         <div class="flex items-center gap-4">
-                            <div class="w-24 text-right text-[10px] font-black text-gray-400 uppercase tracking-tighter">
+                            <div class="w-24 text-right text-xs font-black text-gray-400 uppercase tracking-tighter">
                                 Week 2-3
                             </div>
 
                             <div class="flex-1 h-12 bg-[#f8fafc] rounded-2xl border border-blue-50 relative overflow-hidden group">
                                 <div class="absolute inset-y-0 left-[20%] w-[50%] bg-blue-400 flex items-center px-4 transition-all group-hover:w-[55%]">
-                                    <span class="text-white text-[10px] font-bold whitespace-nowrap">
-                                        n8n Workflow Development
+                                    <span class="text-white text-xs font-bold whitespace-nowrap"
+                                        data-ko="API 및 워크플로우 구축"
+                                        data-en="API & Workflow Setup"
+                                        x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
                                     </span>
                                 </div>
                             </div>
@@ -921,14 +938,16 @@
 
 
                         <div class="flex items-center gap-4">
-                            <div class="w-24 text-right text-[10px] font-black text-gray-400 uppercase tracking-tighter">
+                            <div class="w-24 text-right text-xs font-black text-gray-400 uppercase tracking-tighter">
                                 Week 4
                             </div>
 
                             <div class="flex-1 h-12 bg-gray-50 rounded-2xl border border-gray-100 relative overflow-hidden group">
                                 <div class="absolute inset-y-0 left-[70%] w-[30%] bg-gray-800 flex items-center px-4 transition-all group-hover:w-[32%]">
-                                    <span class="text-white text-[10px] font-bold whitespace-nowrap">
-                                        QA & Deployment
+                                    <span class="text-white text-xs font-bold whitespace-nowrap"
+                                        data-ko="최종 완성 및 봇 연동"
+                                        data-en="FFinalization & Bot Integration"
+                                        x-text="lang === 'ko' ? $el.getAttribute('data-ko') : $el.getAttribute('data-en')">
                                     </span>
                                 </div>
                             </div>
@@ -939,37 +958,33 @@
                 </div>
 
 
-
-                <!-- My Role -->
                 <div class="space-y-10">
-                    <h3 class="text-3xl font-black text-gray-800">My <span class="text-[#ff8a8a]">Role</span></h3>
-                    
-                    <div class="grid md:grid-cols-3 gap-6">
-                        
+                    <h3 class="text-3xl font-black text-gray-800">My <span class="text-[#ff8a8a]">Role</span></h3>         
+                    <div class="grid md:grid-cols-3 gap-6">            
                         <div class="p-8 bg-white border border-gray-100 rounded-[2.5rem] shadow-sm hover:shadow-md transition-all">
-                            <p class="text-[10px] text-[#ff8a8a] uppercase font-black mb-4 tracking-widest">01. SYSTEM ARCHITECTURE</p>
-                            <h4 class="text-sm font-bold text-gray-800 mb-3" data-ko="Automation Architecture Design" data-en="Automation Architecture Design">Automation Architecture Design</h4>
-                            <p class="text-[11px] text-gray-500 leading-relaxed" 
-                            data-ko="Google Forms, n8n, AI 영상 생성 및 멀티 채널 발송을 연결하는 전체 자동화 시스템 구조를 설계했습니다." 
-                            data-en="Designed the overall automation system structure connecting Google Forms, n8n, AI video generation, and multi-channel delivery.">
+                            <p class="text-[xs] text-[#ff8a8a] uppercase font-black mb-4 tracking-widest">01. LINE BOT DEVELOPMENT</p>
+                            <h4 class="text-base font-bold text-gray-800 mb-3" data-ko="라인 봇 연동 및 진입 시나리오 설계" data-en="Bot Integration & Entry Flow"></h4>
+                            <p class="text-[xs] text-gray-500 leading-relaxed" 
+                            data-ko="LINE 메신저 봇을 직접 연동하고, 친구 추가 시 발송되는 웰컴 메시지 등 초기 사용자 진입 시나리오를 개발했습니다." 
+                            data-en="Developed and integrated the LINE messenger bot, designing the initial user entry scenario including the welcome message upon friend addition.">
                             </p>
                         </div>
 
                         <div class="p-8 bg-white border border-gray-100 rounded-[2.5rem] shadow-sm hover:shadow-md transition-all">
-                            <p class="text-[10px] text-[#ff8a8a] uppercase font-black mb-4 tracking-widest">02. WORKFLOW DEVELOPMENT</p>
-                            <h4 class="text-sm font-bold text-gray-800 mb-3" data-ko="n8n Automation Pipeline" data-en="n8n Automation Pipeline">n8n Automation Pipeline</h4>
-                            <p class="text-[11px] text-gray-500 leading-relaxed" 
-                            data-ko="n8n을 활용하여 데이터 처리부터 AI 연동까지 이어지는 엔드투엔드(E2E) 파이프라인을 직접 구현했습니다." 
-                            data-en="Implemented an end-to-end pipeline from data processing to AI integration using n8n.">
+                            <p class="text-[xs] text-[#ff8a8a] uppercase font-black mb-4 tracking-widest">02. DATA TRACKING & MAPPING</p>
+                            <h4 class="text-base font-bold text-gray-800 mb-3" data-ko="식별자 추출 및 데이터 조인" data-en="Identifier Extraction & Data Join"></h4>
+                            <p class="text-[xs] text-gray-500 leading-relaxed" 
+                            data-ko="폼 링크를 통해 사용자의 LINE ID를 추출하고, 이를 식별자로 활용하여 신랑신부 데이터와 하객 데이터를 정확하게 조인(Join)했습니다." 
+                            data-en="Implemented logic to extract the user's LINE ID via form links and utilized it as a key to seamlessly join bride/groom data with individual guest data.">
                             </p>
                         </div>
 
                         <div class="p-8 bg-white border border-gray-100 rounded-[2.5rem] shadow-sm hover:shadow-md transition-all">
-                            <p class="text-[10px] text-[#ff8a8a] uppercase font-black mb-4 tracking-widest">03. API INTEGRATION</p>
-                            <h4 class="text-sm font-bold text-gray-800 mb-3" data-ko="Multi-Platform Integration" data-en="Multi-Platform Integration">Multi-Platform Integration</h4>
-                            <p class="text-[11px] text-gray-500 leading-relaxed" 
-                            data-ko="D-ID, Telegram, LINE API를 통합하고 Google Calendar를 연동하여 프로젝트 관리 자동화를 실현했습니다." 
-                            data-en="Integrated D-ID, Telegram, and LINE APIs, and realized project management automation by linking Google Calendar.">
+                            <p class="text-[xs] text-[#ff8a8a] uppercase font-black mb-4 tracking-widest">03. AUTOMATED DELIVERY</p>
+                            <h4 class="text-base font-bold text-gray-800 mb-3" data-ko="최종 AI 청첩장 자동 발송" data-en="Final AI Invitation Dispatch"></h4>
+                            <p class="text-[xs] text-gray-500 leading-relaxed" 
+                            data-ko="완성된 개인화 AI 청첩장과 메시지가 하객의 LINE 메신저로 자동 발송되도록 최종 파이프라인을 구축했습니다." 
+                            data-en="Configured the final pipeline stage to automatically deliver the personalized AI wedding invitations and messages back to the guest's LINE messenger.">
                             </p>
                         </div>
                         
@@ -979,157 +994,151 @@
             </div>
         </section>
 
+        <footer class="custom-footer bg-[#2d2d2d] py-16 px-6 border-t border-gray-800 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-[#ff8a8a] opacity-[0.05] rounded-full blur-3xl"></div>
+            
+            <div class="max-w-6xl mx-auto relative z-10 text-center">
+                <div class="mb-12">
+                    <h2 class="serif-title text-3xl text-[#e5c1c1] mb-6">AI Wedding Invitation System</h2>
+                    <div class="flex justify-center gap-6 text-gray-500">
+                        <i class="fas fa-bolt hover:text-[#ff8a8a] transition-colors" title="n8n Automation"></i>
+                        <i class="fas fa-brain hover:text-purple-400 transition-colors" title="GPT-4o AI"></i>
+                        <i class="fas fa-film hover:text-blue-400 transition-colors" title="D-ID Video"></i>
+                        <i class="fab fa-line hover:text-[#06C755] transition-colors" title="LINE API"></i>
+                    </div>
+                </div>
 
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-12">
+                    <a href="/" 
+                    class="group flex items-center gap-2 bg-[#ff8a8a] text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-[#ff7676] hover:-translate-y-1 transition-all">
+                        <i class="fas fa-home group-hover:scale-110 transition-transform"></i>
+                        <span data-ko="홈으로 돌아가기" data-en="Back to Home">Back to Home</span>
+                    </a>
+                    
+                    <a href="https://www.canva.com/design/DAHDWMGue2M/y3WQOdsei6QhsMFILMMtOA/edit?utm_content=DAHDWMGue2M&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" 
+                    class="flex items-center gap-2 border-2 border-gray-600 text-gray-300 px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition-all">
+                        <i class="fas fa-external-link-alt text-xs"></i>
+                        <span data-ko="프로젝트 상세 문서" data-en="Project Docs">Project Docs</span>
+                    </a>
+                </div>
 
+                <div class="w-12 h-1 bg-gray-700 mx-auto mb-8 rounded-full"></div>
 
-        <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-        <!-- 숫자 카운트업 스크립트 -->
-        <script>
-            const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section, header'); // 감지할 대상
-
-    const navObserverOptions = {
-        root: document.getElementById('main-scroll'), // snap-container 지정
-        threshold: 0.6 // 섹션의 60%가 보일 때 활성화
-    };
-
-    const navObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                
-                // 모든 링크에서 active 제거 후 해당 ID 링크만 추가
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    }, navObserverOptions);
-
-    // 모든 섹션을 감시 대상으로 등록
-    sections.forEach(section => navObserver.observe(section));
-
-            document.addEventListener("DOMContentLoaded", () => {
-            const counters = document.querySelectorAll(".countup");
-            counters.forEach(counter => {
-                const target = +counter.getAttribute("data-target");
-                let count = 0;
-                const step = Math.ceil(target / 100);
-                const interval = setInterval(() => {
-                count += step;
-                if (count >= target) {
-                    counter.textContent = target;
-                    clearInterval(interval);
-                } else {
-                    counter.textContent = count;
-                }
-                }, 20);
-            });
-            });
-        
+                <div class="text-gray-500 text-xs">
+                    <p class="mb-2" data-ko="AI를 활용한 초개인화 청첩장 자동화 프로젝트" data-en="AI-Powered Hyper-Personalized Invitation Automation"></p>
+                    <p>© 2026 CHOA,LEE. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section, header');
         const stickyNav = document.getElementById('sticky-nav');
         const scrollContainer = document.getElementById('main-scroll');
 
-        // [최적화] 모든 애니메이션 요소를 한 번에 감시하는 통합 옵저버
+        const navObserverOptions = {
+            root: scrollContainer,
+            threshold: 0.6
+        };
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                    });
+                }
+            });
+        }, navObserverOptions);
+
+        sections.forEach(section => navObserver.observe(section));
+
         const observerOptions = {
-            root: scrollContainer, // snap-container 내부 스크롤 감지
-            threshold: 0.2 
+            root: scrollContainer,
+            threshold: 0.2
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                }else {
-            // [추가된 부분] 화면에서 벗어나면 클래스를 제거하여 다음 진입 시 다시 애니메이션되도록 리셋
-            entry.target.classList.remove('is-visible');
-        }
+                } else {
+                    entry.target.classList.remove('is-visible');
+                }
             });
         }, observerOptions);
 
-        // [중요] 봉투 섹션과 페이드업 요소들 모두 감시 대상으로 등록
         document.querySelectorAll('.fade-up-element, #overview').forEach(el => observer.observe(el));
 
+
         scrollContainer.addEventListener('scroll', () => {
-            if (scrollContainer.scrollTop > 100) stickyNav.classList.add('visible');
-            else stickyNav.classList.remove('visible');
+            stickyNav.classList.toggle('visible', scrollContainer.scrollTop > 100);
         });
 
+
         function changeLang(lang) {
-            const elements = document.querySelectorAll('[data-ko]');
-            elements.forEach(el => {
+            document.querySelectorAll('[data-ko]').forEach(el => {
                 const translation = el.getAttribute(`data-${lang}`);
                 if (translation) el.textContent = translation;
             });
             window.dispatchEvent(new CustomEvent('lang-changed', { detail: lang }));
             console.log(`Language changed to: ${lang.toUpperCase()}`);
         }
-        
+
         window.addEventListener('DOMContentLoaded', () => changeLang('en'));
 
-     const cursor = document.getElementById('magic-cursor');
-    const glow = document.getElementById('cursor-glow');
-    const container = document.getElementById('cursor-effect-container');
 
-    // 1. 커서 및 빛 번짐 따라오기
-    window.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        glow.style.left = e.clientX + 'px';
-        glow.style.top = e.clientY + 'px';
+        const cursor = document.getElementById('magic-cursor');
+        const glow = document.getElementById('cursor-glow');
+        const container = document.getElementById('cursor-effect-container');
 
-        // 이동 시 아주 작은 반짝이들 생성
-        if (Math.random() > 0.9) createBlossom(e.clientX, e.clientY, false);
-    });
+        window.addEventListener('mousemove', (e) => {
+            cursor.style.left = glow.style.left = e.clientX + 'px';
+            cursor.style.top = glow.style.top = e.clientY + 'px';
+            if (Math.random() > 0.9) createBlossom(e.clientX, e.clientY, false);
+        });
 
-    // 2. 클릭 시 팡팡 터지는 이펙트
-    window.addEventListener('mousedown', (e) => {
-        // 클릭 시 커서 일시적으로 커짐
-        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        
-        // 한 번에 40개의 꽃잎 폭발
-        for (let i = 0; i < 40; i++) {
-            createBlossom(e.clientX, e.clientY, true);
+        window.addEventListener('mousedown', (e) => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            for (let i = 0; i < 40; i++) {
+                createBlossom(e.clientX, e.clientY, true);
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        function createBlossom(x, y, isBurst) {
+            const p = document.createElement('div');
+            p.className = 'blossom-particle';
+
+            const size = isBurst ? Math.random() * 15 + 10 : Math.random() * 5 + 3;
+            p.style.width = size + 'px';
+            p.style.height = (size * 1.2) + 'px';
+
+            const colors = ['#ffb6c1', '#ffc0cb', '#ff8a8a', '#fff0f5'];
+            p.style.background = colors[Math.floor(Math.random() * colors.length)];
+            p.style.left = x + 'px';
+            p.style.top = y + 'px';
+
+            const range = isBurst ? 500 : 50;
+            const mx = (Math.random() - 0.5) * range;
+            const my = (Math.random() - 0.5) * range;
+            const rt = Math.random() * 720;
+
+            p.style.setProperty('--mx', mx + 'px');
+            p.style.setProperty('--my', my + 'px');
+            p.style.setProperty('--rt', rt + 'deg');
+
+            container.appendChild(p);
+            setTimeout(() => p.remove(), 1500);
         }
-    });
-
-    window.addEventListener('mouseup', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    });
-
-    function createBlossom(x, y, isBurst) {
-        const p = document.createElement('div');
-        p.className = 'blossom-particle';
-        
-        // 사이즈 랜덤
-        const size = isBurst ? Math.random() * 15 + 10 : Math.random() * 5 + 3;
-        p.style.width = size + 'px';
-        p.style.height = (size * 1.2) + 'px';
-
-        // 색상 (진분홍 ~ 연분홍)
-        const colors = ['#ffb6c1', '#ffc0cb', '#ff8a8a', '#fff0f5'];
-        p.style.background = colors[Math.floor(Math.random() * colors.length)];
-
-        p.style.left = x + 'px';
-        p.style.top = y + 'px';
-
-        // 사방으로 퍼지는 거리 및 회전값
-        const range = isBurst ? 500 : 50;
-        const mx = (Math.random() - 0.5) * range;
-        const my = (Math.random() - 0.5) * range;
-        const rt = Math.random() * 720; // 회전 효과
-
-        p.style.setProperty('--mx', mx + 'px');
-        p.style.setProperty('--my', my + 'px');
-        p.style.setProperty('--rt', rt + 'deg');
-
-        container.appendChild(p);
-        setTimeout(() => p.remove(), 1500);
-    }
     </script>
-        
+            
 </body>
 </html>
