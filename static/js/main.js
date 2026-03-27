@@ -113,39 +113,46 @@ window.handleExperienceAnimation = function() {
 };
 
 window.addEventListener('wheel', (e) => {
+    // 스크롤 애니메이션 중이면 무시
     if (window.isScrolling) return;
 
+    // [수정] 섹션 0 (INTRO)에서 아래로 스크롤 할 때만 섹션 1로 이동 허용
     if (window.currentSection === 0) {
-        if (e.deltaY > 0) window.goToSection(1);
-        return;
+        if (e.deltaY > 0) {
+            window.goToSection(1);
+        }
+        return; 
     }
-    if (window.currentSection === 1) {
-        if (e.deltaY > 0) window.goToSection(2);
-        else if (e.deltaY < 0) window.goToSection(0);
-        return;
-    }
+
+    // [수정] 섹션 2 (EXPERIENCE) 내부 스크롤 로직
+    // 다음 섹션으로 넘어가는 goToSection(3) 또는 goToSection(1) 호출을 제거하여 이동을 차단합니다.
     if (window.currentSection === 2) {
         const scrollArea = document.querySelector('.exp-scroll-area');
         if (scrollArea) {
             const isAtBottom = Math.ceil(scrollArea.scrollTop + scrollArea.clientHeight) >= scrollArea.scrollHeight - 10;
             const isAtTop = scrollArea.scrollTop <= 5;
-            if (!isAtBottom && e.deltaY > 0) { scrollArea.scrollTop += e.deltaY; e.preventDefault(); return; }
-            else if (!isAtTop && e.deltaY < 0) { scrollArea.scrollTop += e.deltaY; e.preventDefault(); return; }
-            if (e.deltaY > 0 && isAtBottom) window.goToSection(3);
-            else if (e.deltaY < 0 && isAtTop) window.goToSection(1);
+
+            // 영역 안에서의 스크롤은 허용하되, 섹션 전환은 하지 않음
+            if (e.deltaY > 0 && !isAtBottom) {
+                scrollArea.scrollTop += e.deltaY;
+                e.preventDefault();
+            } else if (e.deltaY < 0 && !isAtTop) {
+                scrollArea.scrollTop += e.deltaY;
+                e.preventDefault();
+            }
         }
         return;
     }
 
+    // [수정] 나머지 모든 섹션 (1, 3, 4)에서 스크롤을 통한 섹션 이동 차단
+    // 기존의 goToSection(window.currentSection + 1) 호출 로직을 삭제했습니다.
     const activeSec = document.getElementById(`section-${window.currentSection}`);
     if (activeSec) {
-        const isAtBottom = Math.ceil(activeSec.scrollTop + activeSec.clientHeight) >= activeSec.scrollHeight - 10;
-        const isAtTop = activeSec.scrollTop <= 5;
-        if (e.deltaY > 0 && isAtBottom && window.currentSection < 4) window.goToSection(window.currentSection + 1);
-        else if (e.deltaY < 0 && isAtTop) window.goToSection(window.currentSection - 1);
+        // 섹션 내부의 콘텐츠가 길 경우 내부 스크롤만 수행
+        // 브라우저 기본 스크롤 동작을 유지하거나 필요시 e.preventDefault()로 제어할 수 있습니다.
     }
+    
 }, { passive: false });
-
 window.toggleEducationView = function() {
     const subjects = document.getElementById('subjects-list');
     const gpa = document.getElementById('gpa-container');

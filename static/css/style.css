@@ -27,7 +27,12 @@
 }
 
 [data-theme="light"] .theme-text-main { color: #27384c !important; }
-
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; /* 가로 스크롤 방지 */
+    margin: 0;
+    padding: 0;
+}
 body {
     margin: 0;
     background: var(--bg-gradient);
@@ -216,8 +221,10 @@ header {
 
 .section-container {
     position: absolute; top: 50%; left: 0; right: 0;
+    width: 100%;
     transform: translateY(-50%); z-index: 20;
-    pointer-events: none; opacity: 0; background-color: transparent !important;
+    pointer-events: none; opacity: 0; 
+    background-color: transparent !important;
     transition: opacity 2s ease, transform 1.8s ease;
     overflow-y: auto; overflow-x: hidden; scrollbar-width: none;
     padding-top: 100px;
@@ -229,20 +236,42 @@ header {
     position: absolute; 
     top: calc(50% + 40px);
     left: 0; right: 0;
-    transform: translateY(-50%); z-index: 20;
-    pointer-events: none; opacity: 0; transition: opacity 1.2s ease, transform 1.2s ease;
+    transform: translateY(-50%); 
+    z-index: 20;
+    pointer-events: none; 
+    opacity: 0; 
+    transition: opacity 1.2s ease, transform 1.2s ease;
+    
+    /* [추가] 컨텐츠를 중앙으로 모으기 위한 설정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #home-content.active { opacity: 1; transform: translateY(-52%); pointer-events: auto; }
+/* [추가] 내부 컨테이너 사이즈 조절 */
+#home-content .container {
+    /* 100% 화면에서 80% 배율의 느낌을 내기 위해 너비 제한 */
+    max-width: 1200px; 
+    width: 80%; /* 화면이 작아질 때를 대비한 유동적 너비 */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+#home-content h1 {
+    font-size: clamp(3.5rem, 6vw, 5.5rem); /* 화면 크기에 따라 반응형으로 조절 */
+    line-height: 1.1;
+}
+
 
 #section-1 {
-    position: absolute !important;
-    top: 0 !important; left: 0; width: 100%; height: 100vh !important;
-    transform: none !important;
-    padding-top: 80px !important;
-    overflow: hidden !important;
-    display: block !important;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 중앙 정렬 대신 상단부터 시작 */
+    align-items: center;
+    overflow-y: auto !important; /* 세로 스크롤 허용 */
+    height: 100vh; /* 화면 높이에 맞춤 */
+    padding-top: 80px; /* 헤더에 가려지지 않게 여백 추가 */
+    padding-bottom: 50px;
+    scrollbar-width: none; /* 파이어폭스 스크롤바 숨김 */
 }
 
 #section-1 .profile-split, #section-1 .about-header-text, #section-1 .about-desc-text, #section-1 .about-feature-card {
@@ -336,7 +365,7 @@ header {
 
 .about-content-wrapper { width: 100%; max-width: 1200px; margin: 0 auto; position: relative; padding: 20px 20px 120px 20px; opacity: 1 !important; display: block !important; }
 
-#section-2, #section-3 { top: 0; transform: translateY(0); height: 100vh; }
+#section-2 { top: 0; transform: translateY(0); height: 100vh; }
 #section-2 { overflow: hidden !important; padding-top: 30px !important; }
 #section-2 .container { height: 100%; display: flex; flex-direction: column; padding-top: 120px; padding-bottom: 40px;}
 
@@ -440,21 +469,52 @@ header {
     100% { opacity: 0; transform: translateX(5px); }
 }
 
-#section-3 { top: 0; transform: translateY(0); height: 100vh; overflow: auto !important; display: flex; align-items: flex-start; justify-content: center; }
-.s3-main-panel { opacity: 0; transform: translateY(40px) scale(0.98); transition: opacity 0.8s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: 0.2s; }
-#section-3.active .s3-main-panel, #section-4.active .s3-main-panel { opacity: 1; transform: translateY(0) scale(1); }
+#section-3 { top: 0; transform: translateY(0); 
+    height: auto; overflow-y: visible;
+    min-height: 100vh;
+    display: block; align-items: flex-start; justify-content: center; }
+
+.s3-main-panel { opacity: 0; 
+    overflow: visible !important;
+    height: auto !important;      /* 고정 높이 제거 */
+    max-height: none;
+    overflow-y: auto;
+    gap: 2rem;
+    transform: translateY(40px) scale(0.98); 
+    transition: opacity 0.8s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); 
+    transition-delay: 0.2s; }
+
+    
+#section-3.active .s3-main-panel, #section-4.active .s3-main-panel { 
+    opacity: 1; transform: translateY(0) scale(1); }
 
 .level-native { background-color: #ebf5ff; color: #3b82f6; }
 .level-advanced { background-color: #f0fdf4; color: #10b981; }
 .level-intermediate { background-color: #fff7ed; color: #f59e0b; }
 
-.orbit-container { position: relative; width: 100%; height: 500px; margin-top: 40px; margin-bottom: 40px; display: flex; justify-content: center; align-items: center; background: transparent; }
-.orbit-wrap { position: relative; width: 300px; height: 300px; list-style: none; margin: 0; padding: 0; overflow: visible !important; }
-.orbit-wrap > li { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); list-style: none; }
+.orbit-container {  
+    width: 75%; 
+    min-height: 300px;
+    transform: scale(0.85);
+    margin: 0;
+    padding: 0;
+    display: flex; justify-content: center; 
+    align-items: center; background: transparent; }
+
+.orbit-wrap { position: relative; width: 60%; aspect-ratio: 1 / 1;
+    list-style: none; margin: 0; padding: 0; 
+    overflow: visible !important; }
+.orbit-wrap > li { position: absolute; left: 50%; top: 50%; 
+    transform: translate(-50%, -50%); list-style: none; }
+.s3-main-panel > div:last-child {
+    height: 50%; /* 나머지 50% 공간 활용 */
+    flex-shrink: 0;
+}
 .orbit-wrap:has(.orbit-center:hover) ul[class^="ring"] { width: 0 !important; height: 0 !important; opacity: 0; transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
 .orbit-wrap:has(.orbit-center:hover) ul[class^="ring"] li { transform: rotate(0deg) translate(0) rotate(0deg) !important; opacity: 0; transition: all 0.8s; }
 
-.orbit-center { z-index: 50; width: 70px; height: 70px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 2rem; box-shadow: 0 0 30px var(--accent-glow); cursor: pointer; transform: translate(-50%, -50%) scale(1); transition: transform 0.3s ease-in-out; }
+.orbit-center { z-index: 50; width: 10%; 
+    height: 10%; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 2rem; box-shadow: 0 0 30px var(--accent-glow); cursor: pointer; transform: translate(-50%, -50%) scale(1); transition: transform 0.3s ease-in-out; }
 .orbit-center:hover { transform: translate(-50%, -50%) scale(1.1); }
 .orbit-center__icon { display: inline-block; transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotate(-360deg); }
 .orbit-center:hover .orbit-center__icon { transform: rotate(0deg); }
@@ -462,10 +522,18 @@ header {
 .orbit-icon { width: 50px; height: 50px; line-height: 50px; border-radius: 50%; background: var(--glass-panel); color: var(--text-main); border: 1px solid var(--glass-border); text-align: center; display: block; font-size: 1.4rem; position: absolute; top: 50%; left: 50%; margin-top: -25px; margin-left: -25px; transition: all 0.3s ease; z-index: 10; backdrop-filter: blur(5px); }
 .orbit-icon:hover { opacity: 1 !important; filter: blur(0) !important; transform: scale(1.3) !important; background: var(--accent) !important; color: white !important; z-index: 100; border-color: var(--accent) !important; }
 
-ul[class^="ring"] { position: relative; border: 2px solid var(--glass-border); border-radius: 50%; padding: 0; list-style: none; display: flex; justify-content: center; align-items: center; margin: 0; transition: all 0.3s ease; box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.05), 0 0 15px rgba(0, 242, 254, 0.05); }
-.ring-0 { border-color: rgba(0, 242, 254, 0.15) !important; width: 380px; height: 380px; animation: clockwiseRotate 40s linear infinite; }
-.ring-1 { border-color: rgba(0, 242, 254, 0.25) !important; width: 260px; height: 260px; animation: clockwiseRotate 30s linear infinite; }
-.ring-2 { border-color: rgba(0, 242, 254, 0.4) !important; width: 160px; height: 160px; animation: clockwiseRotate 20s linear infinite; }
+ul[class^="ring"] { position: relative; 
+    border: 2px solid var(--glass-border); 
+    border-radius: 50%; padding: 0; list-style: none; 
+    display: flex; justify-content: center; 
+    align-items: center; margin: 0; transition: all 0.3s ease; 
+    box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.05), 0 0 15px rgba(0, 242, 254, 0.05); }
+.ring-0 { border-color: rgba(0, 242, 254, 0.15) !important; 
+    width: 380px; height: 380px; animation: clockwiseRotate 40s linear infinite; }
+.ring-1 { border-color: rgba(0, 242, 254, 0.25) !important; 
+    width: 260px; height: 260px; animation: clockwiseRotate 30s linear infinite; }
+.ring-2 { border-color: rgba(0, 242, 254, 0.4) !important; 
+    width: 160px; height: 160px; animation: clockwiseRotate 20s linear infinite; }
 
 @keyframes clockwiseRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes counterClockwiseRotate { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }

@@ -189,14 +189,14 @@
             </div>
         </div>
     </div>
-    <div id="section-3" class="section-container !h-screen !max-h-screen !overflow-hidden flex items-center justify-center">
+    <div id="section-3" class="section-container flex items-center justify-center">
         <div class="w-full h-full flex items-center justify-center pt-24 p-4 md:p-8">
-            <div class="theme-bg-panel mx-auto rounded-[40px] p-6 md:p-10 flex flex-col gap-6 max-w-[1300px] w-full h-full max-h-[90vh] shadow-2xl relative overflow-hidden backdrop-blur-xl s3-main-panel">
-                <div class="flex flex-col items-center justify-center flex-[1.2] min-h-0 relative border-b border-white/5 pb-6">
-                    <div class="w-full mb-4">
+            <div class="theme-bg-panel mx-auto rounded-[40px] p-6 md:p-10 flex flex-col gap-6 max-w-[1300px] w-full h-auto min-h-[90vh] shadow-2xl relative overflow-visible backdrop-blur-xl s3-main-panel">
+                <div class="flex flex-col items-center justify-center flex-[1.2] min-h-0 relative border-b border-white/5 pb-4">
+                    <div class="w-full mb-4 mt-2">
                         <h2 class="!text-[2rem] font-archivo theme-text-main uppercase tracking-tighter text-center">Technical <span class="theme-accent">Skills</span></h2>
                     </div>
-                    <div class="orbit-container !m-0 flex items-center justify-center scale-75 md:scale-95 flex-grow relative">
+                    <div class="orbit-container flex items-center justify-center md:scale-95 flex-grow relative">
                         <ul class="orbit-wrap relative">
                             <li class="orbit-center"><i class="orbit-center__icon fa fa-code"></i></li>
                             {% for db_val, data in skills.items() %}
@@ -237,7 +237,7 @@
                 <div class="flex flex-col lg:flex-row gap-6 flex-1 min-h-0">
                     <div class="w-full lg:w-[65%] flex flex-col gap-4 min-h-0 border-r border-white/5 pr-3">
                         <div class="flex justify-between items-baseline px-2">
-                            <span class="card-mini-title !text-[2rem] !mb-0">Certificates</span>
+                            <span class="card-mini-title !text-[1rem] !mb-0">Certificates</span>
                             <p onclick="openAllCertificates()" class="view-all-btn cursor-pointer">View All</p>
                         </div>
                         <div class="grid grid-cols-3 gap-4 h-full">
