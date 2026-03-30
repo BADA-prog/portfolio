@@ -32,6 +32,7 @@
     </header>
     <div id="home-content" class="active">
         <div class="container mx-auto px-6">
+    
             <div class="max-w-3xl">
                 <div class="h-1 mb-8" style="width: 100px; background: var(--accent); box-shadow: 0 0 15px var(--accent-glow);"></div>
                 <h2 class="text-lg md:text-xl mb-4 tracking-widest theme-accent">PORTFOLIO</h2>
@@ -68,7 +69,7 @@
             </div>
         </div>
     </div>
-    <div id="section-1" class="section-container">
+    <div id="section-1" class="section-container !h-auto !min-h-screen !top-0 !transform-none pt-40 pb-20">
         <div class="about-grid">
             <div class="static-profile-wrapper">
                 <div class="static-profile-img" style="min-height: 400px; position: relative; display: flex; align-items: center; background-color: #0d1b2a; overflow: hidden;">
@@ -155,14 +156,7 @@
                             </div>
                         </div>
                         {% endfor %}
-                        <div class="next-section-trigger">
-                            <p>Scroll to explore skills</p>
-                            <div class="arrows">
-                                <i class="fas fa-chevron-right"></i>
-                                <i class="fas fa-chevron-right"></i>
-                                <i class="fas fa-chevron-right"></i>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="ref-fixed-area">
@@ -295,54 +289,57 @@
             </div>
         </div>
     </div>
-    <div id="section-4" class="section-container !h-screen !max-h-screen !overflow-hidden flex items-center justify-center">
-        <div class="w-full h-full flex items-center justify-center p-4 md:p-8">
-            <div class="theme-bg-panel mx-auto rounded-[40px] p-8 md:p-12 flex flex-col gap-8 max-w-[1000px] w-full h-full max-h-[85vh] shadow-2xl relative overflow-hidden backdrop-blur-xl s3-main-panel border border-white/10">
-                <div class="text-center mb-10">
-                    <h1 class="text-4xl md:text-5xl font-archivo theme-text-main uppercase tracking-tighter">Featured <span class="theme-accent">Works</span></h1>
-                    <p class="text-lg theme-text-sub mt-4 opacity-70">Click to view project details.</p>
-                </div>
-                <div class="project-folder-wrapper overflow-y-auto pr-2 custom-scrollbar flex-grow">
-                    <div class="folder-stack w-full max-w-3xl mx-auto pb-20">
-                        {% for project in projects %}
-                        <div class="folder-card {{ 'active' if loop.first else '' }} " style="z-index: {{ loop.index }};" onclick="activateFolder(this)">
-                            <div class="flex justify-between items-center relative z-10">
-                                <h3 class="font-archivo text-lg md:text-xl text-white flex items-center gap-4"><i class="far fa-folder text-[#00f2fe] text-xl"></i> Folder {{ "%02d" | format(loop.index) }}: {{ project.title }}</h3>
-                                <div class="flex items-center gap-4">
-                                    <span class="hidden md:block px-3 py-1 rounded-full border border-white/10 text-[0.75rem] font-mono text-white/40 uppercase tracking-widest bg-white/5">{{ project.member_type }}</span>
-                                    <i class="fas fa-chevron-down transition-transform duration-500 text-white/20"></i>
-                                </div>
-                            </div>
-                            <div class="folder-content overflow-hidden transition-all duration-500">
-                                <div class="border-t border-white/5 mt-6 pt-8">
-                                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-8">
-                                        <div class="md:col-span-5">
-                                            {% if project.image_url %}
-                                            <div class="aspect-video rounded-xl overflow-hidden border border-white/10 bg-black/40 shadow-inner"><img src="{{ project.image_url }}" class="w-full h-full object-cover" alt="{{ project.title }}"></div>
-                                            {% endif %}
-                                        </div>
-                                        <div class="md:col-span-7"><p class="text-[20px] text-gray-300 leading-relaxed font-light">{{ project.description }}</p></div>
-                                    </div>
-                                    <div class="w-full border-t border-white/10 my-8"></div>
-                                    <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-4">
-                                        <div class="flex flex-wrap gap-3 items-center">                      
-                                            {% if project.tech_stack %}
-                                                {% for tech in project.tech_stack.split(',') %}<span class="tag-item bg-white/5 px-3 py-1.5 rounded-xl text-[0.75rem] font-mono text-white/50 uppercase tracking-wider"><span class="text-[var(--accent)] font-bold text-[16px]">#</span> &nbsp;{{ tech.strip() }}</span>{% endfor %}
-                                            {% else %}<span class="text-white/20 text-[0.85rem] italic font-light">No Tech Stack Info</span>{% endif %}
-                                        </div>
-                                        <a href="{{ url_for('project_detail', project_name=project.project_url) }}" 
-                                        class="flex-shrink-0 text-[0.85rem] font-mono border border-[#00f2fe] text-[#00f2fe] px-10 py-3.5 rounded-2xl hover:bg-[#00f2fe] hover:text-black transition-all duration-500 uppercase tracking-widest shadow-[0_0_20px_rgba(0,242,254,0.15)]" 
-                                        onclick="event.stopPropagation();">View Case Study <i class="fas fa-chevron-right ml-2 text-[12px]"></i></a>
+    <div id="section-4" class="section-container flex items-center justify-center">
+        <div class="w-full h-full flex items-center justify-center pt-24 p-4 md:p-8">
+            <div class="theme-bg-panel mx-auto rounded-[40px] p-6 md:p-10 flex flex-col gap-6 max-w-[1300px] w-full h-auto min-h-[90vh] shadow-2xl relative overflow-visible backdrop-blur-xl s3-main-panel">
+                <div class="flex flex-col items-center justify-center flex-[1.2] min-h-0 relative border-b border-white/5 pb-4">
+                    <div class="w-full mb-4 mt-2">
+                        <h2 class="!text-[2rem] font-archivo theme-text-main uppercase tracking-tighter text-center">Featured <span class="theme-accent">Works</span></h2>
+                        <p class="text-lg theme-text-sub mt-4 opacity-70 text-center">Click to view project details.</p>
+                    </div>
+                    <div class="project-folder-wrapper overflow-y-auto pr-2 custom-scrollbar flex-grow">
+                        <div class="folder-stack w-full max-w-3xl mx-auto pb-20">
+                            {% for project in projects %}
+                            <div class="folder-card {{ 'active' if loop.first else '' }} " style="z-index: {{ loop.index }};" onclick="activateFolder(this)">
+                                <div class="flex justify-between items-center relative z-10">
+                                    <h3 class="font-archivo text-lg md:text-xl text-white flex items-center gap-4"><i class="far fa-folder text-[#00f2fe] text-xl"></i> Folder {{ "%02d" | format(loop.index) }}: {{ project.title }}</h3>
+                                    <div class="flex items-center gap-4">
+                                        <span class="hidden md:block px-3 py-1 rounded-full border border-white/10 text-[0.75rem] font-mono text-white/40 uppercase tracking-widest bg-white/5">{{ project.member_type }}</span>
+                                        <i class="fas fa-chevron-down transition-transform duration-500 text-white/20"></i>
                                     </div>
                                 </div>
+                                <div class="folder-content overflow-hidden transition-all duration-500">
+                                    <div class="border-t border-white/5 mt-6 pt-8">
+                                        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-8">
+                                            <div class="md:col-span-5">
+                                                {% if project.image_url %}
+                                                <div class="aspect-video rounded-xl overflow-hidden border border-white/10 bg-black/40 shadow-inner"><img src="{{ project.image_url }}" class="w-full h-full object-cover" alt="{{ project.title }}"></div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="md:col-span-7"><p class="text-[20px] text-gray-300 leading-relaxed font-light">{{ project.description }}</p></div>
+                                        </div>
+                                        <div class="w-full border-t border-white/10 my-8"></div>
+                                        <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-4">
+                                            <div class="flex flex-wrap gap-3 items-center">                      
+                                                {% if project.tech_stack %}
+                                                    {% for tech in project.tech_stack.split(',') %}<span class="tag-item bg-white/5 px-3 py-1.5 rounded-xl text-[0.75rem] font-mono text-white/50 uppercase tracking-wider"><span class="text-[var(--accent)] font-bold text-[16px]">#</span> &nbsp;{{ tech.strip() }}</span>{% endfor %}
+                                                {% else %}<span class="text-white/20 text-[0.85rem] italic font-light">No Tech Stack Info</span>{% endif %}
+                                            </div>
+                                            <a href="{{ url_for('project_detail', project_name=project.project_url) }}" 
+                                            class="flex-shrink-0 text-[0.85rem] font-mono border border-[#00f2fe] text-[#00f2fe] px-10 py-3.5 rounded-2xl hover:bg-[#00f2fe] hover:text-black transition-all duration-500 uppercase tracking-widest shadow-[0_0_20px_rgba(0,242,254,0.15)]" 
+                                            onclick="event.stopPropagation();">View Case Study <i class="fas fa-chevron-right ml-2 text-[12px]"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script type="module" src="{{ url_for('static', filename='js/background.js') }}"></script>
 </body>

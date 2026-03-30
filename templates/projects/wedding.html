@@ -24,13 +24,15 @@
     }
 
     header, section {
-        height: 100vh;
+        min-height: 100vh;
         width: 100%;
         scroll-snap-align: start;
         scroll-snap-stop: always;
         display: flex;
+        justify-content: center;
         align-items: center;
         flex-shrink: 0;
+        padding: 80px 0;
     }
 
     body { 
@@ -155,9 +157,9 @@
     .envelope-wrapper {
         position: relative;
         width: 100%;
-        max-width: 500px;
-        height: 400px;
-        margin: 400px auto 0;
+        max-width: 450px;
+        height: 350px;
+        margin: 150px auto 0;
         perspective: 1000px;
     }
 
@@ -186,7 +188,7 @@
 
     .invitation-card-pop {
         position: absolute;
-        bottom: 20px;
+        bottom: -150px;
         left: 50%;
         width: 90%;
         max-width: 450px;
@@ -217,6 +219,12 @@
         z-index: 99999;
     }
 
+    /* User Flow 섹션의 비디오 크기 조정 */
+#user-flow .relative.aspect-\[9\/16\] {
+    max-width: 350px; /* 맥북 화면 높이에 맞게 비디오 최대 너비 제한 */
+    margin: 0 auto;
+}
+
     @keyframes particleFadeOut {
         0% { 
             opacity: 1; 
@@ -231,6 +239,28 @@
             transform: translate(var(--mx), var(--my)) scale(0.2) rotate(720deg); 
         }
     }
+
+
+    /* style.css 하단에 추가 */
+
+@media (max-height: 900px) {
+    .hero-main-title {
+        font-size: clamp(2.5rem, 6vw, 4rem); /* 타이틀 크기 축소 */
+    }
+    
+    .invitation-card-pop {
+        padding: 1.5rem 1rem; /* 카드 내부 여백 축소 */
+    }
+    
+    #overview.is-visible .invitation-card-pop {
+        transform: translate(-50%, -180px) scale(1.1); /* 팝업 높이와 스케일 조정 */
+    }
+
+    .grid-cols-3 {
+        gap: 1rem; /* Key Features 간격 축소 */
+    }
+}
+
 
     #magic-cursor {
         position: fixed;
