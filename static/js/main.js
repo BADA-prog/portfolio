@@ -21,11 +21,7 @@ window.toggleTheme = function() {
 
 window.goToSection = (idx) => {
     if (window.isScrolling) return;
-
-    // 1. 모든 섹션의 스크롤과 위치 강제 리셋
     window.scrollTo({ top: 0, behavior: 'instant' }); 
-    
-    // 2. 섹션별 브라우저 스크롤 정책 설정
     if (idx === 0) {
         document.documentElement.style.overflow = 'hidden'; 
         document.body.style.overflow = 'hidden';
@@ -35,18 +31,15 @@ window.goToSection = (idx) => {
         document.body.style.overflow = 'auto';
         document.body.style.height = 'auto';
     }
-
     const homeEl = document.getElementById('home-content');
     const sections = document.querySelectorAll('.section-container');
     
-    // 3. 모든 섹션 클래스 및 트랜스폼 초기화
     sections.forEach(sec => {
         sec.classList.remove('active');
         sec.style.transform = 'none';
         sec.style.top = '0';
     });
 
-    // 4. 타겟 섹션 활성화
     const targetEl = document.getElementById(`section-${idx}`);
     if (idx === 0) {
         if (homeEl) homeEl.classList.add('active');
@@ -55,7 +48,6 @@ window.goToSection = (idx) => {
         if (targetEl) targetEl.classList.add('active');
     }
 
-    // 5. [중요!] 섹션 4 (PROJECTS) 진입 시 무조건 Folder 01 활성화
     if (idx === 4) {
         const folders = document.querySelectorAll('.folder-card');
         folders.forEach((folder, i) => {
@@ -66,16 +58,13 @@ window.goToSection = (idx) => {
         if (wrapper) wrapper.scrollTop = 0;
     }
 
-    // 6. 네비게이션 메뉴 활성화 상태 동기화
     document.querySelectorAll('.nav-link').forEach(link => {
         const sectionNum = parseInt(link.getAttribute('data-section'));
         link.classList.toggle('active', sectionNum === idx);
     });
 
-    // 7. 시각 효과 및 애니메이션 실행
     if (window.morphToShape) window.morphToShape(idx);
     if (idx === 2) handleExperienceAnimation();
-
     window.currentSection = idx;
     window.isScrolling = true;
     setTimeout(() => { window.isScrolling = false; }, 1000);
@@ -88,11 +77,9 @@ window.handleExperienceAnimation = function() {
     const scrollArea = document.querySelector('.exp-scroll-area');
     const trigger = document.querySelector('.next-section-trigger');
     const lineDuration = 3000;
-
     const activeBtn = document.querySelector('.filter-btn.active');
     const currentCategory = activeBtn ? activeBtn.getAttribute('data-filter') : 'ALL';
     if (window.updateYearVisibility) window.updateYearVisibility(currentCategory);
-
     if (scrollArea) scrollArea.scrollTop = 0;
     if (expLine) expLine.classList.remove('show', 'finished');
     if (glowDot) { 
@@ -122,11 +109,8 @@ window.handleExperienceAnimation = function() {
     }, 1500);
 };
 
-// 휠 이벤트: 섹션 1, 4에서 브라우저 권한을 완전히 풀어줌
 window.addEventListener('wheel', (e) => {
     if (window.isScrolling) return;
-
-
     if (window.currentSection === 2) {
         const scrollArea = document.querySelector('.exp-scroll-area');
         if (scrollArea) {
@@ -138,7 +122,6 @@ window.addEventListener('wheel', (e) => {
         return;
     }
 
-    // 섹션 1, 4는 브라우저 기본 스크롤에 맡김 (e.preventDefault() 안 함)
     if (window.currentSection === 1 || window.currentSection === 4) {
         return; 
     }

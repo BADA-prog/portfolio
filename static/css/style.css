@@ -29,7 +29,7 @@
 [data-theme="light"] .theme-text-main { color: #27384c !important; }
 html, body {
     width: 100%;
-    overflow-x: hidden; /* 가로 스크롤 방지 */
+    overflow-x: hidden; 
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -254,8 +254,6 @@ overflow: hidden !important;
     opacity: 0; 
     overflow: hidden;
     transition: opacity 1.2s ease, transform 1.2s ease;
-    
-    /* [추가] 컨텐츠를 중앙으로 모으기 위한 설정 */
     display: flex !important;
     justify-content: center;
     align-items: center;
@@ -264,30 +262,26 @@ overflow: hidden !important;
     transform: none; 
     pointer-events: auto; }
     
-/* [추가] 내부 컨테이너 사이즈 조절 */
 #home-content .container {
-    /* 100% 화면에서 80% 배율의 느낌을 내기 위해 너비 제한 */
     max-width: 1200px; 
-    width: 100%; /* 화면이 작아질 때를 대비한 유동적 너비 */
+    width: 100%; 
     margin: 0 auto;
     padding: 80px 20px 0 20px;
     display: block !important;
 }
 #home-content h1 {
-    font-size: clamp(3.5rem, 6vw, 5.5rem); /* 화면 크기에 따라 반응형으로 조절 */
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
     line-height: 1.1;
 }
-
-
 #section-1 {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* 중앙 정렬 대신 상단부터 시작 */
+    justify-content: flex-start; 
     align-items: center;
-    overflow-y: auto !important; /* 세로 스크롤 허용 */
-    padding-top: 80px; /* 헤더에 가려지지 않게 여백 추가 */
+    overflow-y: auto !important; 
+    padding-top: 80px; 
     padding-bottom: 50px;
-    scrollbar-width: none; /* 파이어폭스 스크롤바 숨김 */
+    scrollbar-width: none;
 }
 
 #section-1 .profile-split, #section-1 .about-header-text, #section-1 .about-desc-text, #section-1 .about-feature-card {
@@ -389,16 +383,13 @@ overflow: hidden !important;
     margin-bottom: 0 !important;
 }
 #section-2 {
-    /* 1. 고정 높이를 해제하고 최소 높이만 설정 */
     height: auto !important; 
     min-height: 100vh;
-    position: relative; /* absolute나 fixed가 아닌 페이지 흐름에 맞게 설정 */
+    position: relative; 
     top: 0;
     transform: none !important;
-    padding-top: 50px; /* 헤더 여백 */
-    padding-bottom: 50px; /* 하단 여백 */
-    
-    /* 2. 스크롤이 잘리지 않도록 설정 */
+    padding-top: 50px;
+    padding-bottom: 50px; 
     overflow-y: visible !important; 
 }
 #section-2 .container { height: auto; display: block; 
@@ -501,7 +492,7 @@ overflow: hidden !important;
 
 .s3-main-panel { opacity: 0; 
     overflow: visible !important;
-    height: auto !important;      /* 고정 높이 제거 */
+    height: auto !important; 
     max-height: none;
     overflow-y: auto;
     gap: 2rem;
@@ -532,7 +523,7 @@ overflow: hidden !important;
 .orbit-wrap > li { position: absolute; left: 50%; top: 50%; 
     transform: translate(-50%, -50%); list-style: none; }
 .s3-main-panel > div:last-child {
-    height: 50%; /* 나머지 50% 공간 활용 */
+    height: 50%;
     flex-shrink: 0;
 }
 .orbit-wrap:has(.orbit-center:hover) ul[class^="ring"] { width: 0 !important; height: 0 !important; opacity: 0; transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }

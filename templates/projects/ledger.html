@@ -2,380 +2,78 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>CHOA's Classic Ledger with Nav</title>
+    <title>CHOA's Classic Ledger</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&family=Montserrat:wght@400;700&family=Nanum+Pen+Script&family=Courier+Prime&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&family=Montserrat:wght@400;700&family=Nanum+Pen+Script&family=Courier+Prime&display=swap');   
         :root {
             --ledger-cover: #3d2b1f;
             --ledger-paper: #fdf6e3;
             --ledger-line: #d9e2e9;
             --p1-tab: #ff7675; --p2-tab: #ffeaa7; --p3-tab: #55efc4; --p4-tab: #74b9ff;
---base-font-size: 16px; /* 기준 폰트 크기 */
-    --title-size: 1.6rem;
-    --meta-size: 0.85rem;
-    --desc-size: 1rem;
+            --base-font-size: 16px; 
+            --title-size: 1.6rem;
+            --meta-size: 0.85rem;
+            --desc-size: 1rem;
         }
-
-        body {
-            background: #a68966;
-            background-position: center;
-            font-family: 'Montserrat', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            perspective: 3000px;
-            overflow: hidden;
-        }
-
-        .book-wrapper {
-            position: relative;
-            transform: translateX(190px);
-            filter: drop-shadow(25px 35px 60px rgba(0,0,0,0.8));
-        }
-
-        .book {
-            width: 380px;
-            height: 520px;
-            position: relative;
-            transform-style: preserve-3d;
-        }
-
-        .page {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-origin: left;
-            transform-style: preserve-3d;
-            transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-            cursor: pointer;
-        }
-
-        /* 앞면 스타일 */
-        .front {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: var(--ledger-paper);
-            background-image: linear-gradient(var(--ledger-line) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,0,0.1) 1px, transparent 1px);
-            background-size: 100% 25px, 30px 100%;
-            padding: 0px 30px 35px 30px;
-            box-sizing: border-box;
-            border-radius: 0 5px 5px 0;
-            backface-visibility: hidden;
-            border-left: 10px solid var(--ledger-cover);
-            display: flex;
-            flex-direction: column;
-            z-index: 2;
-        }
-
-        /* 뒷면 스타일 (왼쪽 페이지) */
-        .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #ebe3cf;
-            transform: rotateY(-180deg);
-            backface-visibility: hidden;
-            border-radius: 5px 0 0 5px;
-            border-right: 10px solid var(--ledger-cover);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px 20px;
-            box-sizing: border-box;
-        }
-
+        body { background: #a68966 center; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; perspective: 3000px; overflow: hidden; }
+        .book-wrapper { position: relative; transform: translateX(190px); filter: drop-shadow(25px 35px 60px rgba(0,0,0,0.8)); }
+        .book { width: 380px; height: 520px; position: relative; transform-style: preserve-3d; }
+        .page { position: absolute; width: 100%; height: 100%; transform-origin: left; transform-style: preserve-3d; transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1); cursor: pointer; }
+        .front { position: absolute; width: 100%; height: 100%; background-color: var(--ledger-paper); background-image: linear-gradient(var(--ledger-line) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,0,0.1) 1px, transparent 1px); background-size: 100% 25px, 30px 100%; padding: 0px 30px 35px 30px; box-sizing: border-box; border-radius: 0 5px 5px 0; backface-visibility: hidden; border-left: 10px solid var(--ledger-cover); display: flex; flex-direction: column; z-index: 2; }
+        .back { position: absolute; width: 100%; height: 100%; background-color: #ebe3cf; transform: rotateY(-180deg); backface-visibility: hidden; border-radius: 5px 0 0 5px; border-right: 10px solid var(--ledger-cover); display: flex; flex-direction: column; align-items: center; padding: 30px 20px; box-sizing: border-box; }
         .page.flipped { transform: rotateY(-180deg); }
-.ledger-stamp-wrap {
-    position: absolute; /* 절대 위치로 변경 */
-    bottom: 25px;       /* 바닥에서 35px 위 */
-    left: 15;
-    width: 100%;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    transform: rotate(-10deg);
-    pointer-events: none; /* 클릭 방해 금지 */
-    z-index: 5;
-}
-.ledger-stamp {
-    font-family: 'Montserrat', sans-serif;
-    border: 3px double; /* 도장 특유의 이중 테두리 */
-    padding: 5px 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    opacity: 0.8;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    background: rgba(255, 255, 255, 0.1); /* 종이 색이 살짝 비치게 */
-}
-
-.stamp-green { 
-    border-color: #27ae60; 
-    color: #27ae60; 
-    box-shadow: 0 0 2px rgba(39, 174, 96, 0.5);
-}
-
-/* 파란색 도장 (CLOUD-SYNC) */
-.stamp-blue { 
-    border-color: #3498db; 
-    color: #3498db; 
-    box-shadow: 0 0 2px rgba(52, 152, 219, 0.5);
-}
-
-.ledger-stamp {
-    text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
-}
-        /* Z-index 관리 */
-        .p1 { z-index: 4; } .p2 { z-index: 3; } .p3 { z-index: 2; } .p4 { z-index: 1; }
-        .page.flipped { z-index: 1 !important; } /* 넘긴 페이지는 아래로 */
-
-        /* 탭 스타일 */
-        .tab {
-            position: absolute;
-            width: 65px;
-            height: 35px;
-            right: -65px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: bold;
-            border-radius: 0 10px 10px 0;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-            transition: all 0.6s ease;
-            z-index: 10;
-            backface-visibility: visible !important;
-        }
-
-        .page.flipped .tab {
-            left: 385px; /* 책 너비 380 + 여유 */
-            right: auto;
-            transform: rotateY(-180deg);
-            border-radius: 10px 0 0 10px;
-            z-index: 50 !important;
-        }
-
-        .tab-p1 { top: 40px; background-color: var(--p1-tab); }
-        .tab-p2 { top: 90px; background-color: var(--p2-tab); }
-        .tab-p3 { top: 140px; background-color: var(--p3-tab); }
-        .tab-p4 { top: 190px; background-color: var(--p4-tab); }
-
-
-
-
-        /* 내부 콘텐츠 스타일 */
-        .ledger-title { font-family: 'Crimson Text', serif;
-        margin-top: 0; 
-        border-bottom: 2px solid #2c3e50; 
-        font-size: var(--title-size);
-        margin-bottom: 20px; }
-
-        .ledger-metadata { font-family: 'Courier Prime', monospace; 
-        font-size: var(--meta-size); 
-        line-height: 1.4; margin-bottom: 15px; }
-        .handwriting { font-family: 'Nanum Pen Script', cursive; 
-        font-size: 1.3rem; color: #1e3799; line-height: 1.4; transform: rotate(-1deg); }
+        .ledger-stamp-wrap { position: absolute; bottom: 25px; left: 15px; width: 100%; display: flex; gap: 15px; justify-content: center; transform: rotate(-10deg); pointer-events: none; z-index: 5; }
+        .ledger-stamp { font-family: 'Montserrat', sans-serif; border: 3px double; padding: 5px 12px; font-weight: bold; text-transform: uppercase; opacity: 0.8; border-radius: 8px; font-size: 0.75rem; letter-spacing: 1px; background: rgba(255, 255, 255, 0.1); text-shadow: 1px 1px 0px rgba(255,255,255,0.5); }
+        .stamp-green { border-color: #27ae60; color: #27ae60; box-shadow: 0 0 2px rgba(39, 174, 96, 0.5); }
+        .stamp-blue { border-color: #3498db; color: #3498db; box-shadow: 0 0 2px rgba(52, 152, 219, 0.5); }
+        .p1 { z-index: 4; } .p2 { z-index: 3; } .p3 { z-index: 2; } .p4 { z-index: 1; } .page.flipped { z-index: 1 !important; }
+        .page.flipped { z-index: 1 !important; }
+        .tab { position: absolute; width: 65px; height: 35px; right: -65px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; border-radius: 0 10px 10px 0; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); transition: all 0.6s ease; z-index: 10; backface-visibility: visible !important; }
+        .page.flipped .tab { left: 385px; right: auto; transform: rotateY(-180deg); border-radius: 10px 0 0 10px; z-index: 50 !important; }
+        .tab-p1 { top: 40px; background-color: var(--p1-tab); } .tab-p2 { top: 90px; background-color: var(--p2-tab); } .tab-p3 { top: 140px; background-color: var(--p3-tab); } .tab-p4 { top: 190px; background-color: var(--p4-tab); }
+        .ledger-title { font-family: 'Crimson Text', serif; margin-top: 0; border-bottom: 2px solid #2c3e50; font-size: var(--title-size); margin-bottom: 20px; }
+        .ledger-metadata { font-family: 'Courier Prime', monospace; font-size: var(--meta-size); line-height: 1.4; margin-bottom: 15px; }
+        .handwriting { font-family: 'Nanum Pen Script', cursive; font-size: 1.3rem; color: #1e3799; line-height: 1.4; transform: rotate(-1deg); }
         .polaroid-frame { background: white; padding: 10px 10px 25px 10px; box-shadow: 5px 5px 15px rgba(0,0,0,0.2); transform: rotate(-3deg); width: 140px; margin-bottom: 15px; }
         .polaroid-frame img { width: 100%; height: 110px; object-fit: cover; border: 1px solid #ddd; }
         .polaroid-caption { font-family: 'Nanum Pen Script', cursive; font-size: 0.9rem; text-align: center; margin-top: 5px; }
-        .ledger-desc, .front p { 
-            font-size: var(--desc-size); 
-        }
+        .ledger-desc, .front p { font-size: var(--desc-size); }
+        .back-btn { margin-top: auto; background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.1); padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; }
+        .stamp { position: absolute; bottom: 30px; right: 30px; border: 3px double #e67e22; color: #e67e22; padding: 5px 10px; transform: rotate(-15deg); font-weight: bold; border-radius: 5px; font-size: 0.8rem; background: rgba(253, 246, 227, 0.8); z-index: 5; }
+        .vertical-pipeline { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 15px 0; }
+        .flow-arrow { font-size: 1.2rem; color: #7f8c8d; line-height: 1; }
+        .result-back-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .mobile-mockup { width: 140px; height: 280px; background-color: #333; border: 3px dashed #666; border-radius: 15px; position: relative; overflow: hidden; margin: 20px 0; transition: all 0.3s ease; cursor: pointer; }
+        .mobile-screen { width: 100%; height: 100%; background-size: cover; background-position: center; position: relative; }
+        .deployed-stamp { position: absolute; top: 30%; left: 10%; border: 3px double #e74c3c; padding: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; color: #e74c3c; text-transform: uppercase; transform: rotate(-15deg); font-size: 0.8rem; opacity: 0.8; }
+        .memo-title.mockup-title { font-size: 1rem; color: #34495e; margin-bottom: 5px; }
+        .back-content-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 100%; height: 100%; padding-top: 20px; }
+        .back-content-wrapper h3 { font-family: 'Crimson Text', serif; font-size: 1rem; color: #c0392b; margin: 0 0 25px 0; height: 1.2rem; }
+        .highlight-title { background: linear-gradient(to top, #fff200 50%, transparent 50%); padding: 0px 3px; border-radius: 3px; font-weight: bold; display: inline-block; margin-right: 5px; }
+        @media (max-width: 950px) { :root { --title-size: 1.7rem; --meta-size: 0.9rem; --desc-size: 1rem; } }
+        @media (max-width: 768px) { :root { --title-size: 1.6rem; --meta-size: 1rem; --desc-size: 1.1rem; } .handwriting { font-size: 1.4rem; } }
+        @media (max-width: 500px) { body { background-attachment: scroll; } .book-wrapper { transform: translateX(100px) scale(0.55); } }
+        @media (max-height: 600px) { .book-wrapper { transform: translateX(190px) scale(0.8); } }
+        @media (min-width: 1200px) { :root { --title-size: 1.7rem; --meta-size: 0.9rem; --desc-size: 1.05rem; } .front { padding-top: 35px !important; } }
 
-        .back-btn { 
-            margin-top: auto; 
-            background: rgba(255,255,255,0.5); 
-            border: 1px solid rgba(0,0,0,0.1); 
-            padding: 8px 15px; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            font-size: 0.75rem;
-        }
-
-
-/* 2. 도장 위치를 하단에 안정적으로 고정 */
-.stamp {
-    position: absolute; /* 절대 위치로 변경 */
-    bottom: 30px;      /* 바닥에서 30px 위 */
-    right: 30px;       /* 오른쪽에서 30px 안쪽 */
-    border: 3px double #e67e22; 
-    color: #e67e22; 
-    padding: 5px 10px; 
-    transform: rotate(-15deg); 
-    font-weight: bold; 
-    border-radius: 5px;
-    font-size: 0.8rem;
-    background: rgba(253, 246, 227, 0.8); /* 배경색을 살짝 깔아 글자와 겹쳐도 보이게 */
-    z-index: 5;
-}
-
-.vertical-pipeline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin: 15px 0;
-}
-.flow-arrow {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-    line-height: 1;
-}
-
-.result-back-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 내부 요소들(목업, 텍스트) 가로 중앙 정렬 */
-    width: 100%;
-}
-/* CSS 추가 스타일 (style.css에 추가) */
-.mobile-mockup {
-    width: 140px; /* 모바일 프레임 크기 조절 */
-    height: 280px; /* 비율 유지 */
-    background-color: #333; /* 어두운 프레임 색상 */
-    border: 3px dashed #666; /* 손으로 그린 듯한 프레임 테두리 */
-    border-radius: 15px; /* 모서리 둥글게 */
-    position: relative;
-    overflow: hidden; /* 내부 내용 잘림 방지 */
-    margin: 20px 0; /* 위아래 여백 */
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-/* 모바일 화면 내부 스타일 */
-.mobile-screen {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-
-/* DEPLOYED 스탬프 스타일 */
-.deployed-stamp {
-    position: absolute;
-    top: 30%; /* 스탬프 위치 조절 */
-    left: 10%; /* 왼쪽 여백 조절 */
-    border: 3px double #e74c3c; /* 스탬프 테두리 */
-    padding: 10px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    color: #e74c3c;
-    text-transform: uppercase;
-    transform: rotate(-15deg); /* 기울임 */
-    font-size: 0.8rem;
-    opacity: 0.8;
-}
-
-/* 모바일 Mockup 제목 스타일 */
-.memo-title.mockup-title {
-    font-size: 1rem;
-    color: #34495e;
-    margin-bottom: 5px;
-}
-.back-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; /* 상단부터 정렬하되 여백으로 조절 */
-    width: 100%;
-    height: 100%;
-    padding-top: 20px; /* 제목이 시작되는 높이를 고정 */
-}
-.back-content-wrapper h3 {
-    font-family: 'Crimson Text', serif;
-    font-size: 1rem;
-    color: #c0392b;
-    margin: 0 0 25px 0; /* 제목 아래 여백을 25px로 고정 */
-    height: 1.2rem; /* 제목 자체의 높이 점유율 고정 */
-}
-
-.highlight-title {
-    background: linear-gradient(to top, #fff200 50%, transparent 50%); /* 형광 노란색 */
-    padding: 0px 3px;          /* 글자 주변 여백 */
-    border-radius: 3px;       /* 모서리 살짝 둥글게 (선택사항) */
-    font-weight: bold;         /* 제목 강조 */
-    display: inline-block;      /* 텍스트 길이에 딱 맞게 배경색 지정 */
-    margin-right: 5px;         /* 뒤에 오는 설명과의 간격 */
-}
-
-
-/* 반응형 대응: 화면이 작아질 때 전체 스케일 조절 */
-@media (max-width: 950px) {
-    :root {
-        --title-size: 1.7rem; 
-        --meta-size: 0.9rem;
-        --desc-size: 1rem;
-    }
-}
-
-/* 모바일 (scale 0.7 이하 지점) */
-@media (max-width: 768px) {
-    :root {
-        --title-size: 1.6rem;
-        --meta-size: 1rem; /* 화면이 작아질수록 글자는 상대적으로 크게 유지 */
-        --desc-size: 1.1rem;
-    }
-    .handwriting {
-        font-size: 1.4rem;
-    }
-}
-
-@media (max-width: 500px) {
-    body {
-        /* 아주 작은 화면에서는 배경 요소를 단순화 */
-        background-attachment: scroll;
-    }
-    .book-wrapper {
-        /* 화면이 너무 작으면 더 작게 축소 */
-        transform: translateX(100px) scale(0.55);
-    }
-}
-
-/* 추가 팁: 화면 높이가 낮은 노트북을 위한 대응 */
-@media (max-height: 600px) {
-    .book-wrapper {
-        transform: translateX(190px) scale(0.8);
-    }
-}
-@media (min-width: 1200px) {
-    :root {
-        --title-size: 1.7rem; /* 1.8에서 조금 줄여서 공간 확보 */
-        --meta-size: 0.9rem;  /* 0.95에서 조금 줄임 */
-        --desc-size: 1.05rem;
-    }
-    .front {
-        padding-top: 35px !important; /* 위쪽 여백을 더 줄여서 도장 자리를 만듦 */
-    }
-}
-</style>
+    </style>
 </head>
 <body>
-
     <div class="book-wrapper">
         <div class="book" id="book">
             <div class="page p1" id="page1" onclick="flipPage(1)">
                 <div class="tab tab-p1" onclick="event.stopPropagation(); goToPage(1)">Intro</div>
                 <div class="front" style="justify-content: flex-start; padding-top: 10px;">
                     <h1 class="ledger-title" style="margin-bottom: 15px;">VANCOUVER<br>SETTLEMENT LEDGER</h1>
-                    
                     <div class="ledger-metadata" style="margin-bottom: 10px;">
                         <p><strong>SUBJECT:</strong> Real-time Expense Tracking</p>
                         <p><strong>DEVELOPER:</strong> CHOA LEE (IM)</p>
                         <p><strong>STATUS:</strong> Data Pipeline Active</p>
                     </div>
-
                     <div style="margin-top: 10px;">
-                        <p class="ledger-desc" >Establishing a settlement standard in Vancouver through a real-time financial pipeline powered by Flask and Google Sheets API.
-                        </p>
+                        <p class="ledger-desc" >Establishing a settlement standard in Vancouver through a real-time financial pipeline powered by Flask and Google Sheets API.</p>
                     </div>
-                    
                     <div class="ledger-stamp-wrap" style="margin-top: auto; padding-bottom: 10px;">
                         <span class="ledger-stamp stamp-green">PR-READY</span>
                         <span class="ledger-stamp stamp-blue">CLOUD-SYNC</span>
@@ -393,20 +91,14 @@
                     <button class="back-btn">← Return to Front</button>
                 </div>
             </div>
-
             <div class="page p2" id="page2" onclick="flipPage(2)">
-                <div class="tab tab-p2" onclick="event.stopPropagation(); goToPage(2)">Issues</div>
-                
+                <div class="tab tab-p2" onclick="event.stopPropagation(); goToPage(2)">Issues</div>              
                     <div class="front" style="justify-content: flex-start; padding-top: 10px;"> <h2 class="ledger-title" style="margin-bottom: 15px;">SETTLEMENT<br>ISSUES</h2>
-                    
                     <div class="ledger-metadata">
                         <p><span class="highlight-title">01. CURRENCY SENSE:</span>Prevents overspending in an unfamiliar currency.</p>
                         <p><span class="highlight-title">02. HIDDEN TAX:</span> Automating 12–30% gap (Price + Tax + Tip)</p>
                         <p><span class="highlight-title">03. PET CARE:</span>Establishing spending baseline for Milk & Potato.</p>
-                    </div>
-
-
-                    
+                    </div>                 
                     <div style="border-top: 2px solid var(--ledger-line); ">
                         <p><b>Categorization Strategy:</b></p>
                         <ul style="font-size: 0.8rem; line-height: 1.5; color: #5d6d7e; padding-left: 20px;">
@@ -417,11 +109,9 @@
                     </div>
                     <div class="stamp" style="border-color: #e67e22; color: #e67e22;">URGENT</div>
                 </div>
-
                 <div class="back" onclick="event.stopPropagation(); unflipPage(2)">
                     <div class="back-content-wrapper">
                         <h3>[Data Pipeline: Vertical Flow]</h3>
-                        
                         <div class="vertical-pipeline">
                             <div style="text-align: center;">
                                 <i class="fas fa-desktop" style="font-size: 1.8rem; color: #34495e;"></i>
@@ -441,41 +131,30 @@
                     </div>
                     <button class="back-btn" style="position: absolute; bottom: 20px;">← Back to Issues</button>
                 </div>
-
-
-
             </div>
-
             <div class="page p3" id="page3" onclick="flipPage(3)">
-                <div class="tab tab-p3" onclick="event.stopPropagation(); goToPage(3)">Logic</div>
-                
+                <div class="tab tab-p3" onclick="event.stopPropagation(); goToPage(3)">Logic</div>      
                 <div class="front" style="justify-content: flex-start; padding-top: 10px;">
-                    <h2 class="ledger-title">SYSTEM<br>ARCHITECTURE</h2>
-                    
+                    <h2 class="ledger-title">SYSTEM<br>ARCHITECTURE</h2>       
                     <div class="ledger-metadata">
                         <p><strong>BACKEND:</strong> Python Flask</p>
                         <p><strong>STORAGE:</strong> Google Sheets Cloud API</p>
                         <p><strong>DEPLOY:</strong> Gunicorn via Render Cloud Platform</p>
                     </div>
-
                     <div style="margin-top: 15px;">
                         <p style="font-weight: bold; font-size: 0.9rem; margin-bottom: 5px;">Technical Stack:</p>
                         <div style="font-family: 'Courier Prime', monospace; font-size: 0.7rem; background: rgba(0,0,0,0.03); padding: 8px; border-left: 3px solid var(--p3-tab); line-height: 1.4;">
                             <b>• AUTH:</b> OAuth 2.0 (creds.json) <br>
-                            <b>• CRUD:</b> gspread (Google Sheets API) <br>
-                            
+                            <b>• CRUD:</b> gspread (Google Sheets API) <br>              
                             <div style="margin-top: 3px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 3px;">
                                 <b>• LOGIC:</b> <br>
                                 - <i>Refund:</i> Auto-deducting expenses <br>
                                 - <i>Split:</i> Chequing, Cash balance
                             </div>
                         </div>
-                    </div>
-                        
+                    </div>      
                     <div class="stamp" style="border-color: #8e44ad; color: #8e44ad;">API-STABLE</div>
-  
                 </div>
-
                 <div class="back" onclick="event.stopPropagation(); unflipPage(3)">
                     <div class="back-content-wrapper">
                         <h3>[Live Dashboard View]</h3>
@@ -491,7 +170,6 @@
                                 SECURE<br>ENCRYPTED
                             </div>
                         </div>
-
                         <p style="font-size: 0.6rem; color: #7f8c8d; margin-top: 10px; font-family: 'Courier Prime', monospace; text-align: center;">
                             * Personal assets are manually masked for security.
                         </p>
@@ -499,38 +177,30 @@
                     <button class="back-btn" style="position: absolute; bottom: 20px;">← Back to Logic</button>
                 </div>
             </div>
-
             <div class="page p4" id="page4">
                 <div class="tab tab-p4" onclick="event.stopPropagation(); goToPage(4)">Result</div>
-                
                 <div class="front" style="justify-content: flex-start; padding-top: 10px;">
                     <h2 class="ledger-title" style="margin-bottom: 15px;">FINAL<br>BALANCE</h2>
-                    
                     <div class="ledger-metadata" style="margin-bottom: 20px;">
                         <p><span class="highlight-title">01. DATA INTEGRITY:</span>Zero discrepancy with bank balance.</p>
                         <p><span class="highlight-title">02. AUTOMATION:</span>100% Manual entry eliminated.</p>
                         <p><span class="highlight-title">03. EFFICIENCY:</span> 90% Time saved in closing.</p>
                     </div>
-
                     <div style="border-top: 2px solid var(--ledger-line); ">
                         <p><b>FUTURE VISION:</b></p>
                         <p style="font-size: 0.85rem; line-height: 1.5; color: #5d6d7e;">
                             Advanced analytics via <b>Power BI</b> integration. 
                             Developing a predictive model for <b>Pet Supply Cycles (Milk & Potato)</b> based on accumulated datasets.
                         </p>
-                    </div>
-                    
-                    
+                    </div>                 
                     <div class="stamp" style="border-color: #27ae60; color: #27ae60;">APPROVED</div>
                 </div>
             </div>
         </div>
     </div>
-
     <script>
         let currentPage = 0;
         const totalPages = 4;
-
         function goToPage(pageNumber) {
             if (pageNumber === currentPage + 1) flipPage(pageNumber);
             else if (pageNumber > currentPage + 1) {

@@ -9,302 +9,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
-    html, body { 
-        height: 100%; 
-        margin: 0; 
-        padding: 0; 
-        overflow: hidden; 
-    }
-
-    .snap-container {
-        height: 100vh;
-        overflow-y: auto;
-        scroll-snap-type: y mandatory;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    header, section {
-        min-height: 100vh;
-        width: 100%;
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-shrink: 0;
-        padding: 80px 0;
-    }
-
-    body { 
-        font-family: 'Noto Sans KR', sans-serif; 
-        background-color: #fdfbfb; 
-        color: #4a4a4a; 
-    }
-
-    .serif-title { 
-        font-family: 'Dancing Script', cursive; 
-    }
-
-    .glass-card { 
-        background: rgba(255, 255, 255, 0.8); 
-        backdrop-filter: blur(10px); 
-        border: 1px solid rgba(255, 182, 193, 0.3); 
-    }
-
-    #sticky-nav { 
-        transform: translateY(-100%); 
-        transition: all 0.5s ease-in-out; 
-    }
-
-    #sticky-nav.visible { 
-        transform: translateY(0); 
-    }
-
-    .nav-link { 
-        position: relative; 
-        transition: color 0.3s; 
-    }
-
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        width: 0; 
-        height: 2px;
-        bottom: -4px; 
-        left: 0;
-        background-color: #ff8a8a;
-        transition: width 0.3s;
-    }
-
-    .nav-link.active {
-        color: #ff8a8a !important;
-        font-weight: 700;
-    }
-
-    .nav-link.active::after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 2px;
-        background: #ff8a8a;
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-    }
-
-    .nav-link:hover::after { 
-        width: 100%; 
-    }
-
-    .snap-container::-webkit-scrollbar { 
-        width: 6px; 
-    }
-
-    .snap-container::-webkit-scrollbar-thumb { 
-        background-color: rgba(212, 163, 163, 0.5); 
-        border-radius: 10px; 
-    }
-
-    .hero-new {
-        position: relative;
-        background-image: url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1000&auto=format&fit=crop');
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .hero-overlay {
-        position: absolute;
-        top: 0; 
-        left: 0; 
-        width: 100%; 
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-    }
-
-    .hero-container {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        color: white;
-    }
-
-    .hero-top-text {
-        font-family: 'Cinzel', serif;
-        font-size: 1.1rem;
-        letter-spacing: 5px;
-        text-transform: uppercase;
-        text-shadow: 0 0 5px rgba(0,0,0,0.8);
-        margin-bottom: 20px;
-    }
-
-    .hero-main-title {
-        font-family: 'Great Vibes', cursive;
-        font-size: clamp(3rem, 8vw, 5.5rem);
-        line-height: 1.3;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5);
-        animation: fadeInHero 2.5s ease-in-out;
-    }
-
-    @keyframes fadeInHero {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .envelope-wrapper {
-        position: relative;
-        width: 100%;
-        max-width: 450px;
-        height: 350px;
-        margin: 150px auto 0;
-        perspective: 1000px;
-    }
-
-    .envelope-back {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 250px;
-        background: #4a90bc;
-        border-radius: 0 0 15px 15px;
-        z-index: 1;
-    }
-
-    .envelope-front {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 250px;
-        background: #5dade2;
-        clip-path: polygon(0 0, 0% 100%, 100% 100%, 100% 0, 50% 45%);
-        z-index: 2;
-        border-radius: 0 0 15px 15px;
-    }
-
-    .invitation-card-pop {
-        position: absolute;
-        bottom: -150px;
-        left: 50%;
-        width: 90%;
-        max-width: 450px;
-        background: #fdfcf8;
-        padding: 3rem 2rem;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        z-index: 3;
-        opacity: 0;
-        transform: translate(-50%, 20px) scale(0.7); 
-        transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-        border-radius: 10px;
-        border: 1px solid #eee;
-    }
-
-    #overview.is-visible .invitation-card-pop {
-        opacity: 1;
-        transform: translate(-50%, -240px) scale(1.3); 
-        box-shadow: 0 40px 100px rgba(0,0,0,0.25);
-    }
-
-    #cursor-effect-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 99999;
-    }
-
-    /* User Flow 섹션의 비디오 크기 조정 */
-#user-flow .relative.aspect-\[9\/16\] {
-    max-width: 350px; /* 맥북 화면 높이에 맞게 비디오 최대 너비 제한 */
-    margin: 0 auto;
-}
-
-    @keyframes particleFadeOut {
-        0% { 
-            opacity: 1; 
-            transform: translate(0, 0) scale(1) rotate(0deg); 
-        }
-        20% {
-            opacity: 1;
-            transform: translate(calc(var(--mx) * 0.2), calc(var(--my) * 0.2)) scale(1.2) rotate(90deg);
-        }
-        100% { 
-            opacity: 0; 
-            transform: translate(var(--mx), var(--my)) scale(0.2) rotate(720deg); 
-        }
-    }
-
-
-    /* style.css 하단에 추가 */
-
-@media (max-height: 900px) {
-    .hero-main-title {
-        font-size: clamp(2.5rem, 6vw, 4rem); /* 타이틀 크기 축소 */
-    }
-    
-    .invitation-card-pop {
-        padding: 1.5rem 1rem; /* 카드 내부 여백 축소 */
-    }
-    
-    #overview.is-visible .invitation-card-pop {
-        transform: translate(-50%, -180px) scale(1.1); /* 팝업 높이와 스케일 조정 */
-    }
-
-    .grid-cols-3 {
-        gap: 1rem; /* Key Features 간격 축소 */
-    }
-}
-
-
-    #magic-cursor {
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        background: radial-gradient(circle, #ffb6c1 0%, rgba(255, 182, 193, 0) 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 1000000;
-        box-shadow: 0 0 15px #ff8a8a, 0 0 30px #ffb6c1;
-        transition: transform 0.1s ease-out;
-        transform: translate(-50%, -50%);
-    }
-
-    #cursor-glow {
-        position: fixed;
-        width: 150px;
-        height: 150px;
-        background: radial-gradient(circle, rgba(255, 138, 138, 0.15) 0%, rgba(255, 182, 193, 0) 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 999999;
-        transform: translate(-50%, -50%);
-    }
-
-    .blossom-particle {
-        position: fixed;
-        pointer-events: none;
-        z-index: 999998;
-        background: #ffb6c1;
-        clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
-        animation: blossomFade 1.5s ease-out forwards;
-    }
-
-    @keyframes blossomFade {
-        0% { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
-        100% { opacity: 0; transform: translate(var(--mx), var(--my)) rotate(var(--rt)) scale(0); }
-    }
-    .custom-footer {
-    height: auto;          /* 내용 높이에 맞춤 */
-    min-height: 300px;     /* 최소 높이 지정 (원하는 만큼 조절) */
-    scroll-snap-align: end; /* 중요: 섹션 끝에 딱 붙도록 설정 */
-    padding: 60px 24px;
-    }
+        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+        .snap-container { height: 100vh; overflow-y: auto; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
+        header, section { min-height: 100vh; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: flex; justify-content: center; align-items: center; flex-shrink: 0; padding: 80px 0; }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #fdfbfb; color: #4a4a4a; }
+        .snap-container::-webkit-scrollbar { width: 6px; }
+        .snap-container::-webkit-scrollbar-thumb { background-color: rgba(212, 163, 163, 0.5); border-radius: 10px; }
+        .serif-title { font-family: 'Dancing Script', cursive; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 182, 193, 0.3); }
+        #sticky-nav { transform: translateY(-100%); transition: all 0.5s ease-in-out; }
+        #sticky-nav.visible { transform: translateY(0); }
+        .nav-link { position: relative; transition: color 0.3s; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #ff8a8a; transition: width 0.3s; }
+        .nav-link.active { color: #ff8a8a !important; font-weight: 700; }
+        .nav-link.active::after { content: ''; display: block; width: 100%; height: 2px; background: #ff8a8a; position: absolute; bottom: -4px; left: 0; }
+        .nav-link:hover::after { width: 100%; }
+        .hero-new { position: relative; background-image: url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1000&auto=format&fit=crop'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1; }
+        .hero-container { position: relative; z-index: 2; text-align: center; color: white; }
+        .hero-top-text { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 5px; text-transform: uppercase; text-shadow: 0 0 5px rgba(0,0,0,0.8); margin-bottom: 20px; }
+        .hero-main-title { font-family: 'Great Vibes', cursive; font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1.3; text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5); animation: fadeInHero 2.5s ease-in-out; }
+        @keyframes fadeInHero { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .envelope-wrapper { position: relative; width: 100%; max-width: 450px; height: 350px; margin: 150px auto 0; perspective: 1000px; }
+        .envelope-back { position: absolute; bottom: 0; left: 0; width: 100%; height: 250px; background: #4a90bc; border-radius: 0 0 15px 15px; z-index: 1; }
+        .envelope-front { position: absolute; bottom: 0; left: 0; width: 100%; height: 250px; background: #5dade2; clip-path: polygon(0 0, 0% 100%, 100% 100%, 100% 0, 50% 45%); z-index: 2; border-radius: 0 0 15px 15px; }
+        .invitation-card-pop { position: absolute; bottom: -150px; left: 50%; width: 90%; max-width: 450px; background: #fdfcf8; padding: 3rem 2rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 3; opacity: 0; transform: translate(-50%, 20px) scale(0.7); transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1); border-radius: 10px; border: 1px solid #eee; }
+        #overview.is-visible .invitation-card-pop { opacity: 1; transform: translate(-50%, -240px) scale(1.3); box-shadow: 0 40px 100px rgba(0,0,0,0.25); }
+        #cursor-effect-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99999; }
+        #magic-cursor { position: fixed; width: 20px; height: 20px; background: radial-gradient(circle, #ffb6c1 0%, rgba(255, 182, 193, 0) 70%); border-radius: 50%; pointer-events: none; z-index: 1000000; box-shadow: 0 0 15px #ff8a8a, 0 0 30px #ffb6c1; transition: transform 0.1s ease-out; transform: translate(-50%, -50%); }
+        #cursor-glow { position: fixed; width: 150px; height: 150px; background: radial-gradient(circle, rgba(255, 138, 138, 0.15) 0%, rgba(255, 182, 193, 0) 70%); border-radius: 50%; pointer-events: none; z-index: 999999; transform: translate(-50%, -50%); }
+        .blossom-particle { position: fixed; pointer-events: none; z-index: 999998; background: #ffb6c1; clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%); animation: blossomFade 1.5s ease-out forwards; }
+        @keyframes blossomFade { 0% { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); } 100% { opacity: 0; transform: translate(var(--mx), var(--my)) rotate(var(--rt)) scale(0); } }
+        @keyframes particleFadeOut { 0% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); } 20% { opacity: 1; transform: translate(calc(var(--mx) * 0.2), calc(var(--my) * 0.2)) scale(1.2) rotate(90deg); } 100% { opacity: 0; transform: translate(var(--mx), var(--my)) scale(0.2) rotate(720deg); } }
+        #user-flow .relative.aspect-\[9\/16\] { max-width: 350px; margin: 0 auto; }
+        @media (max-height: 900px) { .hero-main-title { font-size: clamp(2.5rem, 6vw, 4rem); } .invitation-card-pop { padding: 1.5rem 1rem; } #overview.is-visible .invitation-card-pop { transform: translate(-50%, -180px) scale(1.1); } .grid-cols-3 { gap: 1rem; } }
+        .custom-footer { height: auto; min-height: 300px; scroll-snap-align: end; padding: 60px 24px; }
     </style>
 </head>
 <body onload="document.body.classList.add('is-visible')">
@@ -925,7 +664,6 @@
                     </div>
 
                 </div>
-
 
 
                 <!-- Timeline -->
