@@ -26,7 +26,6 @@
     --mask-bg-color: #f8fafc;
 }
 
-[data-theme="light"] .theme-text-main { color: #27384c !important; }
 html, body {
     width: 100%;
     overflow-x: hidden; 
@@ -105,8 +104,13 @@ body:hover .cursor-dot, body:hover .cursor-outline { opacity: 1; }
     border: 1px solid var(--glass-border) !important; 
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    transition: all 0.4s ease;
+    transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease;
     color: var(--text-main) !important;
+}
+
+.theme-bg-panel:hover {
+    background: color-mix(in srgb, var(--glass-panel) 88%, white 12%) !important;
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--glass-border) 70%);
 }
 
 .spotlight { 
@@ -222,9 +226,9 @@ header {
 
 .section-container {
     display: none;
-    position: absolute; top: 50%; left: 0; right: 0;
+    position: relative; top: 0; left: 0; right: 0;
     width: 100%;
-    transform: translateY(-50%); z-index: 20;
+    transform: none; z-index: 20;
     pointer-events: none; opacity: 0; 
     background-color: transparent !important;
     transition: opacity 2s ease, transform 1.8s ease;
@@ -321,6 +325,7 @@ overflow: hidden !important;
     justify-content: center;
     z-index: 2;
     align-items: flex-start; 
+    position: relative;
     left: -150px !important;
 }
 
@@ -362,8 +367,9 @@ overflow: hidden !important;
 
 @media (max-width: 968px) {
     .profile-split { flex-direction: column !important; height: auto !important; }
-    .profile-side-content { padding: 40px 30px; text-align: center; }
+    .profile-side-content { padding: 40px 30px; text-align: center; left: 0 !important; align-items: center; }
     .profile-side-image { height: 350px; width: 100%; mask-image: none; -webkit-mask-image: none; }
+    .view-portfolio-btn { margin-left: 0; }
 }
 
 .static-profile-img {
@@ -607,11 +613,6 @@ li[class^="ring-"]:hover .label-box { opacity: 1; visibility: visible; transform
 .custom-hr { border: 0; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 1rem; margin-bottom: 2rem; width: 100%; }
 
 .theme-accent-text { color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); }
-.theme-text-main { color: #f8fafc !important; }
-.theme-text-sub { color: #94a3b8 !important; }
-
-.theme-bg-panel { background: rgba(255, 255, 255, 0.03); transition: transform 0.3s ease; }
-.theme-bg-panel:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(0, 242, 254, 0.3); }
 
 .lang-tag { padding: 0.2rem 0.6rem; border-radius: 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; min-width: 38px; text-align: center; }
 .tag-c2 { background: rgba(0, 242, 254, 0.05); color: #00f2fe; border-color: rgba(0, 242, 254, 0.3); }

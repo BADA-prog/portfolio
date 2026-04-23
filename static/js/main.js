@@ -36,8 +36,6 @@ window.goToSection = (idx) => {
     
     sections.forEach(sec => {
         sec.classList.remove('active');
-        sec.style.transform = 'none';
-        sec.style.top = '0';
     });
 
     const targetEl = document.getElementById(`section-${idx}`);
@@ -203,6 +201,7 @@ window.showReference = function(expId) {
 
     if (targetRef) {
         if (defaultMsg) defaultMsg.style.opacity = '0';
+        allRefs.forEach(ref => ref.classList.remove('highlight'));
         targetRef.style.opacity = '1';
         targetRef.style.transform = 'translateY(0)';
         targetRef.style.pointerEvents = 'auto';
